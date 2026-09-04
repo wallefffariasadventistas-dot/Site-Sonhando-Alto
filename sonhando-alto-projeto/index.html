@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonhando Alto Piauí</title>
+
+<meta property="og:title" content="Sonhando Alto Piauí">
+<meta property="og:description" content="Conheça o projeto e faça parte dessa missão.">
+<meta property="og:image" content="https://sonhandoalto-mpi.vercel.app/capa-v2.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:url" content="https://sonhandoalto-mpi.vercel.app">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sonhando Alto Piauí">
+<meta name="twitter:description" content="Conheça o projeto e faça parte dessa missão.">
+<meta name="twitter:image" content="https://sonhandoalto-mpi.vercel.app/capa-v2.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Anton&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<nav class="site-nav" id="siteNav">
+  <a href="#" class="site-nav-logo" aria-label="Sonhando Alto">
+    <span class="site-nav-logo-mark"></span>
+    <span class="site-nav-logo-text">Sonhando Alto</span>
+  </a>
+  <div class="site-nav-links">
+    <a href="#sobre">Sobre</a>
+    <a href="#beneficios">Benefícios</a>
+    <a href="#areas">Áreas</a>
+    <a href="#secaoEstudantesPublic">Galeria</a>
+    <a href="#universidades">Universidades</a>
+    <a href="?admin=1">Acesso ADM</a>
+  </div>
+  <a href="#inscreva-se" class="site-nav-cta">Inscreva-se agora</a>
+  <button type="button" class="site-nav-toggle" id="navToggleBtn" aria-label="Abrir menu">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+</nav>
+
+<div class="nav-drawer-backdrop" id="navBackdrop"></div>
+<div class="nav-drawer" id="navDrawer">
+  <button type="button" class="nav-drawer-close" id="navCloseBtn" aria-label="Fechar menu">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="nav-drawer-links">
+    <a href="#sobre">Sobre</a>
+    <a href="#beneficios">Benefícios</a>
+    <a href="#areas">Áreas</a>
+    <a href="#secaoEstudantesPublic">Galeria</a>
+    <a href="#universidades">Universidades</a>
+    <a href="?admin=1">Acesso ADM</a>
+  </div>
+  <a href="#inscreva-se" class="btn">Inscreva-se agora</a>
+</div>
+
+
+<!-- ======================================================= -->
+<!-- TELA: FORMULÁRIO PÚBLICO DE INSCRIÇÃO                    -->
+<!-- ======================================================= -->
+<div id="viewForm" class="page">
+
+  <div class="hero-banner">
+    <div class="hero-bg-slideshow" id="heroBgSlideshow">
+      <div class="hero-bg-slide" style="background-image:url('images/hero-bg-1.jpg')"></div>
+      <div class="hero-bg-slide" style="background-image:url('images/hero-bg-2.jpg')"></div>
+      <div class="hero-bg-slide" style="background-image:url('images/hero-bg-3.jpg')"></div>
+      <div class="hero-bg-slide" style="background-image:url('images/hero-bg-4.jpg')"></div>
+      <div class="hero-bg-slide" style="background-image:url('images/hero-bg-5.jpg')"></div>
+    </div>
+    <div class="hero-bg-slideshow hero-bg-slideshow--mobile" id="heroBgSlideshowMobile">
+      <div class="hero-bg-slide" style="background-image:url('images/mobile-bg-1.jpg')"></div>
+      <div class="hero-bg-slide" style="background-image:url('images/mobile-bg-2.jpg')"></div>
+      <div class="hero-bg-slide" style="background-image:url('images/mobile-bg-3.jpg')"></div>
+    </div>
+    <div class="hero-bg-overlay"></div>
+
+    <div class="hero-caption">
+      <span class="kicker">Sonhando Alto · 25 anos transformando vidas</span>
+      <h1>
+        <span class="lw" style="animation-delay:.00s">P</span><span class="lw" style="animation-delay:.05s">l</span><span class="lw" style="animation-delay:.10s">a</span><span class="lw" style="animation-delay:.15s">y</span>
+        <span class="lw" style="animation-delay:.22s">n</span><span class="lw" style="animation-delay:.27s">o</span>
+        <span class="hl"><span class="lw" style="animation-delay:.34s">F</span><span class="lw" style="animation-delay:.39s">u</span><span class="lw" style="animation-delay:.44s">t</span><span class="lw" style="animation-delay:.49s">u</span><span class="lw" style="animation-delay:.54s">r</span><span class="lw" style="animation-delay:.59s">o</span></span>
+      </h1>
+      <p class="hero-subtitle hero-subtitle--lead">Está preparado para viver uma experiência que pode mudar a sua vida?</p>
+    </div>
+  </div>
+
+  <div class="about-section" id="sobre">
+    <p class="about-text">
+      O <strong>Sonhando Alto</strong> é o lugar onde jovens comuns descobrem seu propósito, desenvolvem seu potencial e aprendem a servir a Deus enquanto constroem um futuro sólido. Há <strong>25 anos</strong>, o programa acelera o caminho de quem sonha em ingressar na <strong>universidade</strong> e viver uma <strong>experiência missionária</strong>, desenvolvendo <strong>talentos</strong> e crescendo nos aspectos <strong>pessoal e espiritual</strong>.
+    </p>
+
+
+    <div class="video-section" style="max-width:1400px;padding:0;margin:0 auto 34px;">
+      <div class="video-cta-tag">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5-9-5.5z"/></svg>
+        Conheça o projeto
+      </div>
+      <div class="video-wrap" id="projectVideoWrap">
+        <video id="projectVideo" poster="images/project-video-poster.jpg" playsinline preload="none">
+          <source src="videos/project-video.mp4" type="video/mp4">
+          Seu navegador não suporta vídeo.
+        </video>
+        <button class="video-play-btn" id="projectPlayBtn" aria-label="Assistir vídeo do projeto">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#141414"><path d="M6 4l14 8-14 8V4z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="project-info" style="margin-top:26px;margin-bottom:0;">
+      <div class="project-info-card">
+        <div class="icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <div class="txt">
+          <div class="lbl">Início do projeto</div>
+          <div class="val">Setembro de 2026</div>
+        </div>
+      </div>
+      <div class="project-info-card">
+        <div class="icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="txt">
+          <div class="lbl">Local da missão</div>
+          <div class="val">Picos · PI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pillars-section" id="areas">
+    <h2 class="section-heading">Cinco áreas que o <span class="grad-text">Sonhando Alto</span> desenvolve</h2>
+    <p class="pillars-intro">Não é sorte, é estrutura: cada uma dessas frentes é trabalhada de forma intencional ao longo da jornada.</p>
+    <div class="pillars-list">
+      <div class="pillar-row">
+        <div class="pillar-num">01</div>
+        <div>
+          <div class="pillar-head">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20.5c0-4.2 3.4-7.2 7.5-7.2s7.5 3 7.5 7.2"/></svg>
+            </div>
+            <div class="pillar-title">Identidade</div>
+          </div>
+          <div class="pillar-text">Descubra quem você realmente pode ser.</div>
+          <ul class="pillar-list">
+            <li>Enfrente seus medos</li>
+            <li>Descubra o seu potencial</li>
+            <li>Desenvolva sua autoestima</li>
+            <li>Fortaleça seus pontos fortes</li>
+            <li>Amplie seu autoconhecimento</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pillar-row">
+        <div class="pillar-num">02</div>
+        <div>
+          <div class="pillar-head">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><path d="M12 2.5l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L12 16.6l-5.6 3 1.4-6.3-4.8-4.3 6.4-.6z"/></svg>
+            </div>
+            <div class="pillar-title">Propósito</div>
+          </div>
+          <div class="pillar-text">Faça da sua vida um instrumento para transformar outras pessoas.</div>
+          <ul class="pillar-list">
+            <li>Seja um agente de transformação</li>
+            <li>Viva com propósito e significado</li>
+            <li>Experimente Deus atuando na sua vida</li>
+            <li>Testemunhe milagres e respostas à oração</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pillar-row">
+        <div class="pillar-num">03</div>
+        <div>
+          <div class="pillar-head">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><path d="M3 18l6-6.5 4 4L21 6"/><path d="M15 6h6v6"/></svg>
+            </div>
+            <div class="pillar-title">Desenvolvimento</div>
+          </div>
+          <div class="pillar-text">Prepare-se para os desafios da vida.</div>
+          <ul class="pillar-list">
+            <li>Comunicação de alto impacto</li>
+            <li>Liderança de pessoas e projetos</li>
+            <li>Gestão do tempo</li>
+            <li>Conhecimento da Palavra de Deus</li>
+            <li>Vida de oração</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pillar-row">
+        <div class="pillar-num">04</div>
+        <div>
+          <div class="pillar-head">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><circle cx="8.5" cy="8" r="3"/><circle cx="16" cy="9" r="2.4"/><path d="M2.8 20c.4-3.6 3-5.8 5.7-5.8s5.3 2.2 5.7 5.8M14.8 14.6c2.2.2 4.1 2 4.4 5"/></svg>
+            </div>
+            <div class="pillar-title">Comunidade</div>
+          </div>
+          <div class="pillar-text">Cresça ao lado de pessoas que inspiram você a ser melhor.</div>
+          <ul class="pillar-list">
+            <li>Construa amizades verdadeiras</li>
+            <li>Viva experiências espirituais marcantes</li>
+            <li>Supere desafios em equipe</li>
+            <li>Desenvolva hábitos saudáveis</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pillar-row">
+        <div class="pillar-num">05</div>
+        <div>
+          <div class="pillar-head">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><path d="M12 1.5v21M17 6H9.3a3.3 3.3 0 000 6.6h5.4a3.3 3.3 0 010 6.6H6"/></svg>
+            </div>
+            <div class="pillar-title">Liberdade Financeira</div>
+          </div>
+          <div class="pillar-text">Aprenda a construir um futuro com autonomia.</div>
+          <ul class="pillar-list">
+            <li>Financie seus próprios sonhos</li>
+            <li>Invista na sua faculdade</li>
+            <li>Alcance seus objetivos</li>
+            <li>Desenvolva responsabilidade financeira</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="benefits-section" id="beneficios">
+    <h2 class="section-heading">Benefícios do <span class="grad-text">Projeto</span></h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.6 1.4 6.8L12 17l-6.1 3.5 1.4-6.8-5.1-4.6 6.9-.8L12 2z"/></svg>
+        </div>
+        <div class="benefit-title">Descontos de 40%</div>
+        <div class="benefit-text">Nas universidades parceiras, para você acelerar o caminho até a sua graduação.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+        </div>
+        <div class="benefit-title">Bolsas de até 100%</div>
+        <div class="benefit-text">Estude sem se preocupar com o custo, através das bolsas de estudo do programa.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        </div>
+        <div class="benefit-title">Soft Skills</div>
+        <div class="benefit-text">Desenvolve a comunicação, vendas, liderança e resiliência.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><path d="M12 2C9 6 7 9 7 13a5 5 0 0010 0c0-4-2-7-5-11z"/></svg>
+        </div>
+        <div class="benefit-title">Crescimento Espiritual</div>
+        <div class="benefit-text">Promove o envolvimento direto com o evangelismo e missões comunitárias.</div>
+      </div>
+      <div class="benefit-card" style="grid-column:1 / -1;">
+        <div class="benefit-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="8" r="3"/><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/><path d="M14 14c3 .3 5 2.6 5 6"/></svg>
+        </div>
+        <div class="benefit-title">Networking</div>
+        <div class="benefit-text">Facilita a criação de novas amizades e contatos profissionais de diversas regiões.</div>
+      </div>
+    </div>
+
+    <div class="section-subheading">Quem pode participar?</div>
+    <ul class="requirements-list">
+      <li>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        Jovens adventistas que já tenham terminado o Ensino Médio
+      </li>
+      <li>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        Jovens que tenham interesse em viver a missão
+      </li>
+      <li>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        Jovens que buscam independência financeira
+      </li>
+    </ul>
+  </div>
+
+  <div class="galeria-section" id="secaoEstudantesPublic" style="display:none;">
+    <h2 class="section-heading" id="tituloEstudantesPublic">Jovens estudando através do <span class="grad-text">Projeto</span></h2>
+    <p class="galeria-descricao" id="descricaoEstudantesPublic">Conheça jovens que estão na faculdade por meio do Projeto Sonhando Alto.</p>
+    <div class="galeria-carousel-wrap">
+      <button class="galeria-nav galeria-nav--prev" id="ge_navPrev" aria-label="Ver fotos anteriores">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="galeria-grid" id="galeriaEstudantesPublicGrid"></div>
+      <button class="galeria-nav galeria-nav--next" id="ge_navNext" aria-label="Ver mais fotos">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="galeria-section galeria-section--formados" id="secaoFormadosPublic" style="display:none;">
+    <h2 class="section-heading">
+      <svg class="cap-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3L1 8l11 5 9-4.1V15"/><path d="M5 10.5V16c0 1.5 3 3.5 7 3.5s7-2 7-3.5v-5.5"/></svg>
+      <span class="heading-text" id="tituloFormadosPublic">Galeria de Formados através do <span class="grad-text">Projeto</span></span>
+    </h2>
+    <div class="section-heading-divider"></div>
+    <p class="galeria-descricao" id="descricaoFormadosPublic">Conheça jovens que já realizaram seu sonho da formatura através do Projeto Sonhando Alto.</p>
+    <div class="galeria-carousel-wrap">
+      <button class="galeria-nav galeria-nav--prev" id="gf_navPrev" aria-label="Ver fotos anteriores">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="galeria-grid" id="galeriaFormadosPublicGrid"></div>
+      <button class="galeria-nav galeria-nav--next" id="gf_navNext" aria-label="Ver mais fotos">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="about-section" id="universidades" style="margin-top:40px;">
+    <div class="section-subheading">Algumas das universidades parceiras</div>
+    <div class="universities-grid">
+      <a href="https://www.uniaene.edu.br/" target="_blank" rel="noopener" class="university-card">
+        <div class="university-photo">
+          <img src="https://s.educacaoadventista.org.br/escola/fachada/wPeTsQ6i9I0NNbbhbm9ffm1xyfzF83VySYYDG2Eg.png" alt="Campus UNIAENE" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="icon-fallback" style="display:none;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+          </div>
+        </div>
+        <div class="uni-name">UNIAENE</div>
+        <div class="uni-cta">Visitar site →</div>
+      </a>
+      <a href="https://unasp.br/" target="_blank" rel="noopener" class="university-card">
+        <div class="university-photo">
+          <img src="https://cdn.unasp.br/home/2020/08/27104442/campus-sao-paulo-arvores-400x400.png" alt="Campus UNASP" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="icon-fallback" style="display:none;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+          </div>
+        </div>
+        <div class="uni-name">UNASP</div>
+        <div class="uni-cta">Visitar site →</div>
+      </a>
+      <a href="https://www.faama.edu.br/" target="_blank" rel="noopener" class="university-card">
+        <div class="university-photo">
+          <img src="https://faama.educacaoadventista.org.br/assets/images/fachada.webp" alt="Campus FAAMA" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="icon-fallback" style="display:none;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+          </div>
+        </div>
+        <div class="uni-name">FAAMA</div>
+        <div class="uni-cta">Visitar site →</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="video-section">
+    <div class="video-cta-tag">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5-9-5.5z"/></svg>
+      Play no futuro — Assista
+    </div>
+    <div class="video-wrap" id="videoWrap">
+      <video id="promoVideo" poster="images/promo-video-poster.jpg" playsinline preload="none">
+        <source src="videos/promo-video.mp4" type="video/mp4">
+        Seu navegador não suporta vídeo.
+      </video>
+      <button class="video-play-btn" id="videoPlayBtn" aria-label="Assistir vídeo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#141414"><path d="M6 4l14 8-14 8V4z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="about-section closing-section">
+    <p class="about-text">
+      O Sonhando Alto é uma jornada de crescimento <strong>pessoal, espiritual e profissional</strong> que prepara você para viver com propósito e construir um futuro sólido.
+    </p>
+    <p class="about-text">
+      Aqui você não apenas sonha mais alto. <strong>Você aprende a viver à altura dos sonhos que Deus preparou para você.</strong>
+    </p>
+  </div>
+
+  <div class="container" id="inscreva-se">
+
+    <div class="leads-card">
+      <h2>Ainda com <span>dúvidas</span>?</h2>
+      <p class="leads-sub">Quero receber mais informações</p>
+      <div id="leadMsgArea"></div>
+
+      <div class="form-progress-wrap">
+        <div class="form-progress-track">
+          <div class="form-progress-bar" id="leadProgressBar"></div>
+        </div>
+        <div class="form-progress-spinner" id="leadProgressSpinner"></div>
+      </div>
+      <div class="form-step-counter" id="leadStepCounter">Pergunta 1 de 4</div>
+
+      <div class="form-step" data-step="1">
+        <div class="field" data-field="leadNome">
+          <label>Nome</label>
+          <input type="text" id="lead_nome">
+          <div class="err-msg">Informe o nome.</div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="2">
+        <div class="row2">
+          <div class="field" data-field="leadTelefone">
+            <label>Telefone</label>
+            <input type="text" id="lead_telefone" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15">
+            <div class="err-msg">Informe um telefone válido.</div>
+          </div>
+          <div class="field" data-field="leadIdade">
+            <label>Idade</label>
+            <input type="number" id="lead_idade" min="1" max="120">
+            <div class="err-msg">Informe a idade.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="3">
+        <div class="row2">
+          <div class="field" data-field="leadCidade">
+            <label>Cidade</label>
+            <input type="text" id="lead_cidade">
+            <div class="err-msg">Informe a cidade.</div>
+          </div>
+          <div class="field" data-field="leadDistrito">
+            <label>Distrito</label>
+            <input type="text" id="lead_distrito">
+            <div class="err-msg">Informe o distrito.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="4">
+        <div class="field" data-field="leadEnsinoMedio">
+          <label>Já concluiu o ensino médio?</label>
+          <select id="lead_ensinoMedio">
+            <option value="">Selecione</option>
+            <option>Sim</option>
+            <option>Não</option>
+          </select>
+          <div class="err-msg">Selecione uma opção.</div>
+        </div>
+      </div>
+
+      <div class="form-step-nav">
+        <button type="button" class="btn secondary" id="btnLeadVoltar">← Voltar</button>
+        <button type="button" class="btn hidden" id="btnEnviarLead">Quero saber mais</button>
+      </div>
+    </div>
+
+    <div id="formIntro" class="intro">
+      <p>Preencha todos os campos com atenção. Seus dados serão usados apenas para o processo de recrutamento e acompanhamento do projeto Sonhando Alto.</p>
+    </div>
+
+    <div id="formMsgArea"></div>
+
+    <button type="button" class="btn" id="btnScrollToForm" style="margin-bottom:24px;">Preencha os dados abaixo para se inscrever</button>
+
+    <form id="inscricaoForm" novalidate>
+
+      <div class="form-progress-wrap">
+        <div class="form-progress-track">
+          <div class="form-progress-bar" id="formProgressBar"></div>
+        </div>
+        <div class="form-progress-spinner" id="formProgressSpinner"></div>
+      </div>
+      <div class="form-step-counter" id="formStepCounter">Pergunta 1 de 14</div>
+
+      <div class="form-step" data-step="1">
+        <div class="pergunta-projeto-titulo">Qual <span class="grad-text">projeto</span> você quer participar?</div>
+        <div class="field" data-field="projeto">
+          <div class="projeto-opcoes">
+            <button type="button" class="projeto-opcao" data-valor="Sonhando Alto">
+              <span class="projeto-opcao-titulo">Sonhando Alto</span>
+              <span class="projeto-opcao-desc">Programa missionário estudantil</span>
+            </button>
+            <button type="button" class="projeto-opcao" data-valor="Férias Universitária">
+              <span class="projeto-opcao-titulo">Férias Universitária em Missão</span>
+              <span class="projeto-opcao-desc">Programa de férias para universitários</span>
+            </button>
+          </div>
+          <select id="f_projeto" style="display:none;">
+            <option value="">Selecione</option>
+            <option>Sonhando Alto</option>
+            <option>Férias Universitária</option>
+          </select>
+          <div class="err-msg">Selecione uma das opções acima.</div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="2">
+        <div class="section-title">Dados pessoais</div>
+
+        <div class="field" data-field="nome">
+          <label>Nome completo</label>
+          <input type="text" id="f_nome" autocomplete="name">
+          <div class="err-msg">Informe o nome completo.</div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="3">
+        <div class="row2">
+          <div class="field" data-field="nascimento">
+            <label>Data de nascimento</label>
+            <input type="date" id="f_nascimento">
+            <div class="err-msg">Informe a data de nascimento.</div>
+          </div>
+          <div class="field" data-field="estadoCivil">
+            <label>Estado civil</label>
+            <select id="f_estadoCivil">
+              <option value="">Selecione</option>
+              <option>Solteiro(a)</option>
+              <option>Casado(a)</option>
+              <option>Divorciado(a)</option>
+              <option>Viúvo(a)</option>
+              <option>União estável</option>
+            </select>
+            <div class="err-msg">Selecione o estado civil.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="4">
+        <div class="row2">
+          <div class="field" data-field="cpf">
+            <label>CPF</label>
+            <input type="text" id="f_cpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14">
+            <div class="err-msg">CPF inválido. Use o formato 000.000.000-00.</div>
+          </div>
+          <div class="field" data-field="rg">
+            <label>RG</label>
+            <input type="text" id="f_rg" placeholder="00.000.000-0">
+            <div class="err-msg">Informe o RG.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="5">
+        <div class="field" data-field="escolaridade">
+          <label>Escolaridade</label>
+          <select id="f_escolaridade">
+            <option value="">Selecione</option>
+            <option>Fundamental incompleto</option>
+            <option>Fundamental completo</option>
+            <option>Médio incompleto</option>
+            <option>Médio completo</option>
+            <option>Superior incompleto</option>
+            <option>Superior completo</option>
+            <option>Pós-graduação</option>
+          </select>
+          <div class="err-msg">Selecione a escolaridade.</div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="6">
+        <div class="section-title">Contato</div>
+        <div class="field" data-field="email">
+          <label>E-mail</label>
+          <input type="email" id="f_email" autocomplete="email" placeholder="nome@exemplo.com">
+          <div class="err-msg">Informe um e-mail válido.</div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="7">
+        <div class="field" data-field="whatsapp">
+          <label>Telefone WhatsApp</label>
+          <input type="text" id="f_whatsapp" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15">
+          <div class="err-msg">Informe um telefone válido com DDD.</div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="8">
+        <div class="section-title">Endereço</div>
+        <div class="row2">
+          <div class="field" data-field="cep">
+            <label>CEP</label>
+            <input type="text" id="f_cep" inputmode="numeric" placeholder="00000-000" maxlength="9">
+            <div class="err-msg">Informe um CEP válido.</div>
+          </div>
+          <div class="field" data-field="cidade">
+            <label>Cidade</label>
+            <input type="text" id="f_cidade">
+            <div class="err-msg">Informe a cidade.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="9">
+        <div class="field" data-field="distritoPastoral">
+          <label>Distrito Pastoral</label>
+          <select id="f_distritoPastoral">
+            <option value="">Selecione seu distrito</option>
+            <option>Aeroporto – PI</option>
+            <option>Agricolândia</option>
+            <option>Além Rio</option>
+            <option>Boa Esperança – Parnaíba</option>
+            <option>Bom Jesus</option>
+            <option>Campo Maior</option>
+            <option>Central Teresina</option>
+            <option>Dirceu Arco Verde</option>
+            <option>Floriano</option>
+            <option>Guadalupe</option>
+            <option>José de Freitas</option>
+            <option>Luzilândia</option>
+            <option>Monte Castelo</option>
+            <option>Parnaíba</option>
+            <option>Parque Ideal</option>
+            <option>Parque Piauí</option>
+            <option>Passagem das Pedras – Picos</option>
+            <option>Picos</option>
+            <option>Piripiri</option>
+            <option>Porto Alegre</option>
+            <option>Primavera</option>
+            <option>Promorar</option>
+            <option>São Raimundo Nonato</option>
+            <option>Teresina Leste</option>
+          </select>
+          <div class="err-msg">Selecione seu distrito pastoral.</div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="10">
+        <div class="field" data-field="endereco">
+          <label>Endereço (rua, número)</label>
+          <input type="text" id="f_endereco">
+          <div class="err-msg">Informe o endereço.</div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="11">
+        <div class="field" data-field="bairro">
+          <label>Bairro</label>
+          <input type="text" id="f_bairro">
+          <div class="err-msg">Informe o bairro.</div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="12">
+        <div class="section-title">Dados da família</div>
+        <div class="field" data-field="nomePai">
+          <label>Nome do pai</label>
+          <input type="text" id="f_nomePai" placeholder="Deixe em branco se não souber">
+        </div>
+      </div>
+
+      <div class="form-step" data-step="13">
+        <div class="field" data-field="nomeMae">
+          <label>Nome da mãe</label>
+          <input type="text" id="f_nomeMae">
+          <div class="err-msg">Informe o nome da mãe.</div>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="14">
+        <div class="section-title">Outros</div>
+        <div class="field" data-field="camisa">
+          <label>Tamanho de camisa</label>
+          <select id="f_camisa">
+            <option value="">Selecione</option>
+            <option>PP</option>
+            <option>P</option>
+            <option>M</option>
+            <option>G</option>
+            <option>GG</option>
+            <option>XG</option>
+          </select>
+          <div class="err-msg">Selecione o tamanho da camisa.</div>
+        </div>
+      </div>
+
+      <div class="form-step-nav">
+        <button type="button" class="btn secondary" id="btnStepVoltar">← Voltar</button>
+        <button type="submit" class="btn hidden" id="btnSubmit">Enviar inscrição</button>
+      </div>
+    </form>
+
+    <div id="formSuccess" class="success-screen hidden">
+      <div class="icon">✓</div>
+      <h2>Inscrição <span class="grad-text">enviada</span>!</h2>
+      <p>Recebemos seus dados com sucesso.<br>Em breve nossa equipe entrará em contato pelo WhatsApp informado.</p>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-cta-buttons">
+      <a href="https://www.instagram.com/superacaocolportagem?igsh=MTd4cG01MzlsMDE1MA%3D%3D&utm_source=qr" target="_blank" rel="noopener" class="footer-cta-btn footer-cta-btn--ig" aria-label="Seguir no Instagram">
+        <span class="icon-circle">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="#ffffff" stroke="none"/></svg>
+        </span>
+        Instagram
+      </a>
+    </div>
+
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-col-title">Projeto</div>
+        <a href="#sobre" class="footer-link">Sobre o projeto</a>
+        <a href="#beneficios" class="footer-link">Benefícios</a>
+        <a href="#areas" class="footer-link">Áreas</a>
+        <a href="#secaoEstudantesPublic" class="footer-link">Galeria de fotos</a>
+        <a href="#universidades" class="footer-link">Universidades parceiras</a>
+        <a href="#inscreva-se" class="footer-link">Inscreva-se</a>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Endereço</div>
+        <p class="footer-text">Rua Acésio do Rêgo Monteiro, nº 1977<br>Bairro Ininga — CEP 64049-610<br>Teresina, Piauí</p>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Organização</div>
+        <p class="footer-text">Igreja Adventista do Sétimo Dia<br>Missão Piauiense<br>CNPJ 01.104.932/0063-40</p>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Contato</div>
+        <p class="footer-text">Pr. Walleff Farias<br>(86) 99803-6707<br>walleff.farias@adventistas.org</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 Sonhando Alto · MPi — Ministério de Publicações. Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5586998036707?text=Ol%C3%A1%2C%20gostaria%20de%20receber%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20Sonhando%20Alto." target="_blank" rel="noopener" class="whatsapp-float" aria-label="Fazer uma pergunta no WhatsApp">
+    <span class="wa-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#ffffff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003c-5.514 0-9.997 4.483-9.997 9.997 0 1.762.462 3.485 1.34 5.003l-1.42 5.184 5.309-1.393a9.96 9.96 0 0 0 4.768 1.214h.004c5.514 0 9.997-4.483 9.997-9.997 0-2.671-1.04-5.182-2.929-7.071a9.93 9.93 0 0 0-7.072-2.937zm5.86 15.858a8.29 8.29 0 0 1-5.86 2.43h-.003a8.3 8.3 0 0 1-4.235-1.16l-.304-.18-3.15.826.84-3.07-.198-.315a8.28 8.28 0 0 1-1.27-4.412c0-4.583 3.73-8.312 8.318-8.312a8.26 8.26 0 0 1 5.878 2.44 8.26 8.26 0 0 1 2.435 5.876 8.29 8.29 0 0 1-2.451 5.877z"/></svg>
+    </span>
+  </a>
+</div>
+
+<!-- ======================================================= -->
+<!-- TELA: LOGIN ADMIN                                        -->
+<!-- ======================================================= -->
+<div id="viewAdminLogin" class="page hidden">
+  <div class="topbar">
+    <div class="brand">Sonhando Alto</div>
+    <div class="sub">Painel administrativo</div>
+  </div>
+  <div class="admin-login">
+    <h2>Acesso restrito</h2>
+    <div id="loginMsgArea"></div>
+    <button class="btn" id="btnLogin" style="display:flex;align-items:center;justify-content:center;gap:10px;">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84c-.21 1.13-.84 2.09-1.8 2.73v2.27h2.92c1.71-1.57 2.68-3.88 2.68-6.64z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.27c-.81.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.34C2.44 15.98 5.48 18 9 18z"/><path fill="#FBBC05" d="M3.97 10.71c-.18-.54-.28-1.11-.28-1.71s.1-1.17.28-1.71V4.95H.96C.35 6.17 0 7.55 0 9s.35 2.83.96 4.05l3.01-2.34z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.51.45 3.44 1.35l2.59-2.59C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.95l3.01 2.34C4.68 5.16 6.66 3.58 9 3.58z"/></svg>
+      Entrar com Google
+    </button>
+  </div>
+</div>
+
+<!-- ======================================================= -->
+<!-- TELA: PAINEL ADMIN                                       -->
+<!-- ======================================================= -->
+<div id="viewAdmin" class="page hidden">
+  <div class="admin-header">
+    <div class="brand">Sonhando Alto · Admin</div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <button class="btn small secondary" id="btnExportExcel">Exportar Excel</button>
+      <button class="btn small secondary" id="btnLogout">Sair</button>
+    </div>
+  </div>
+  <div class="admin-body">
+
+    <div class="stats" id="visitasStatsArea" style="margin-bottom:8px;"></div>
+    <div class="stats" id="origemStatsArea" style="margin-bottom:18px;"></div>
+
+    <div style="background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:16px;margin-bottom:24px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+        <div class="section-title" style="margin:0;border:none;padding:0;">Cliques por dia</div>
+        <select id="periodoGraficoSelect" style="background:var(--card);border:1px solid var(--card-border);color:var(--white);padding:6px 10px;border-radius:8px;font-size:12.5px;">
+          <option value="7">Últimos 7 dias</option>
+          <option value="14" selected>Últimos 14 dias</option>
+          <option value="30">Últimos 30 dias</option>
+          <option value="90">Últimos 90 dias</option>
+        </select>
+      </div>
+      <canvas id="graficoCliquesDiarios" height="90"></canvas>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="tab-btn active" data-tab="tabInscritos">Inscritos</button>
+      <button class="tab-btn" data-tab="tabCadastroParticipante">Cadastrar participante</button>
+      <button class="tab-btn" data-tab="tabCadastroLider">Cadastrar líder</button>
+      <button class="tab-btn" data-tab="tabLeads">Leads</button>
+      <button class="tab-btn" data-tab="tabFerias">Férias Universitária</button>
+      <button class="tab-btn" data-tab="tabDistritos">Distritos</button>
+      <button class="tab-btn" data-tab="tabGaleria">Galeria de Fotos</button>
+    </div>
+
+    <!-- ABA: INSCRITOS (visualização e gestão) -->
+    <div id="tabInscritos" class="tab-panel">
+
+      <div class="stats" id="statsArea"></div>
+
+      <div class="toolbar">
+        <input type="text" id="searchInput" placeholder="Buscar por nome, CPF, cidade ou WhatsApp...">
+        <select id="filterStatus">
+          <option value="">Todos os status</option>
+          <option>Inscrito</option>
+          <option>Em análise</option>
+          <option>Aprovado</option>
+          <option>Reprovado</option>
+          <option>Confirmado</option>
+        </select>
+        <select id="filterCidade">
+          <option value="">Todas as cidades</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Idade</th>
+              <th>Cidade</th>
+              <th>WhatsApp</th>
+              <th>Status</th>
+              <th>Inscrito em</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ABA: CADASTRAR PARTICIPANTE (o admin cadastra manualmente) -->
+    <div id="tabCadastroParticipante" class="tab-panel hidden">
+      <p style="color:var(--gray);font-size:13.5px;margin-bottom:20px;max-width:520px;">
+        Use esta aba para cadastrar diretamente um jovem que ainda não fez a própria inscrição pelo formulário público — os dados entram na mesma lista de "Inscritos".
+      </p>
+      <div id="msgCadastroParticipante"></div>
+      <div id="camposCadastroParticipante" style="max-width:520px;"></div>
+      <button class="btn" id="btnCadastrarParticipante" style="margin-top:6px;max-width:320px;">Cadastrar participante</button>
+    </div>
+
+    <!-- ABA: CADASTRAR LÍDER (máximo 2) -->
+    <div id="tabCadastroLider" class="tab-panel hidden">
+      <p style="color:var(--gray);font-size:13.5px;margin-bottom:16px;max-width:520px;">
+        Cada equipe pode ter no máximo <strong style="color:var(--gold-light);">2 líderes</strong> cadastrados.
+      </p>
+      <div class="stat-card" id="liderStatusCard" style="max-width:220px;margin-bottom:20px;"></div>
+
+      <div id="listaLideres" style="max-width:520px;margin-bottom:24px;"></div>
+
+      <div id="liderLimitMsg" class="hidden" style="max-width:520px;"></div>
+      <div id="msgCadastroLider"></div>
+      <div id="camposCadastroLider" style="max-width:520px;"></div>
+      <button class="btn" id="btnCadastrarLider" style="margin-top:6px;max-width:320px;">Cadastrar líder</button>
+    </div>
+
+    <!-- ABA: LEADS (interessados a contatar) -->
+    <div id="tabLeads" class="tab-panel hidden">
+      <div class="stats" id="leadsStatsArea"></div>
+
+      <div class="toolbar">
+        <input type="text" id="leadsSearchInput" placeholder="Buscar por nome, telefone ou cidade...">
+        <select id="leadsFilterStatus">
+          <option value="">Todos os status</option>
+          <option>Pendente</option>
+          <option>Contatado</option>
+          <option>Aguardando resposta</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Telefone</th>
+              <th>Cidade</th>
+              <th>Distrito</th>
+              <th>Idade</th>
+              <th>Ensino médio</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="leadsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ABA: FÉRIAS UNIVERSITÁRIA (inscritos que escolheram esse projeto no formulário) -->
+    <div id="tabFerias" class="tab-panel hidden">
+      <p style="color:var(--gray);font-size:13.5px;margin-bottom:16px;max-width:560px;">
+        Jovens que preencheram o formulário público e escolheram participar do <strong style="color:var(--gold-light);">Férias Universitária</strong> em vez do Sonhando Alto.
+      </p>
+      <div class="stats" id="feriasStatsArea"></div>
+
+      <div class="toolbar">
+        <input type="text" id="feriasSearchInput" placeholder="Buscar por nome, e-mail, WhatsApp ou cidade...">
+        <select id="feriasFilterStatus">
+          <option value="">Todos os status</option>
+          <option>Inscrito</option>
+          <option>Em análise</option>
+          <option>Aprovado</option>
+          <option>Reprovado</option>
+          <option>Confirmado</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>WhatsApp</th>
+              <th>Cidade</th>
+              <th>Idade</th>
+              <th>Escolaridade</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="feriasTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ABA: DISTRITOS (cobertura de distritos pastorais no Sonhando Alto) -->
+    <div id="tabDistritos" class="tab-panel hidden">
+      <p style="color:var(--gray);font-size:13.5px;margin-bottom:20px;max-width:640px;">
+        Mostra quais distritos pastorais já têm pelo menos um jovem <strong style="color:var(--success);">confirmado</strong> no Sonhando Alto, e quais ainda estão pendentes (sem nenhum jovem confirmado).
+      </p>
+      <div class="stats" id="distritosResumoArea" style="margin-bottom:20px;"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Distrito</th>
+              <th>Pastor</th>
+              <th>Status</th>
+              <th>Confirmados</th>
+              <th>Inscritos (todos os status)</th>
+            </tr>
+          </thead>
+          <tbody id="distritosTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ABA: GALERIA DE FOTOS (jovens estudando / formados) -->
+    <div id="tabGaleria" class="tab-panel hidden">
+      <p style="color:var(--gray);font-size:13.5px;margin-bottom:24px;max-width:560px;">
+        Gerencie as fotos exibidas na página pública. Nome, curso, cidade e distrito são opcionais — a foto aparece assim que você adicionar.
+      </p>
+
+      <div style="margin-bottom:40px;max-width:560px;">
+        <div class="section-title" style="margin-top:0;">Títulos das seções (página pública)</div>
+        <div class="field">
+          <label>Título — Jovens estudando</label>
+          <input type="text" id="titulo_ge" placeholder="Jovens estudando através do Projeto">
+        </div>
+        <div class="field">
+          <label>Descrição — Jovens estudando</label>
+          <textarea id="descricao_ge" rows="2" placeholder="Conheça jovens que estão na faculdade por meio do Projeto Sonhando Alto."></textarea>
+        </div>
+        <div class="field">
+          <label>Título — Galeria de Formados</label>
+          <input type="text" id="titulo_gf" placeholder="Galeria de Formados através do Projeto">
+        </div>
+        <div class="field">
+          <label>Descrição — Galeria de Formados</label>
+          <textarea id="descricao_gf" rows="2" placeholder="Conheça jovens que já realizaram seu sonho da formatura através do Projeto Sonhando Alto."></textarea>
+        </div>
+        <button class="btn small" id="btnSalvarTitulos" style="flex:0 0 auto;">Salvar títulos</button>
+        <div id="msg_titulos"></div>
+      </div>
+
+      <div>
+        <div class="section-title" style="margin-top:0;">Jovens estudando através do projeto</div>
+        <div id="ge_form" class="galeria-upload-form">
+          <div class="row2">
+            <div class="field"><label>Foto</label><input type="file" id="ge_foto" accept="image/*"></div>
+            <div class="field"><label>Nome</label><input type="text" id="ge_nome" placeholder="Opcional"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Curso</label><input type="text" id="ge_curso" placeholder="Opcional"></div>
+            <div class="field"><label>Cidade</label><input type="text" id="ge_cidade" placeholder="Opcional"></div>
+          </div>
+          <div class="field"><label>Distrito</label><input type="text" id="ge_distrito" placeholder="Opcional"></div>
+          <div id="ge_previewWrap" class="hidden reposition-wrap">
+            <div class="reposition-preview foto-enquadrada" id="ge_previewBox"></div>
+            <div class="reposition-hint">Arraste a foto para mover · role o mouse ou use o gesto de pinça (dois dedos) para dar zoom</div>
+            <div class="zoom-controls">
+              <button type="button" class="btn small secondary zoom-btn" id="ge_zoomOut">−</button>
+              <span class="zoom-label" id="ge_zoomLabel">100%</span>
+              <button type="button" class="btn small secondary zoom-btn" id="ge_zoomIn">+</button>
+              <button type="button" class="btn small secondary" id="ge_centralizar" style="flex:0 0 auto;margin-left:auto;">Redefinir</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn small" id="btnSalvar_ge" style="flex:0 0 auto;">Adicionar foto</button>
+            <button class="btn small secondary hidden" id="btnCancelar_ge" style="flex:0 0 auto;">Cancelar edição</button>
+          </div>
+        </div>
+        <div id="msg_ge"></div>
+        <div id="lista_ge" class="galeria-admin-grid"></div>
+      </div>
+
+      <div style="margin-top:44px;">
+        <div class="section-title">Galeria de Formados através do projeto</div>
+        <div id="gf_form" class="galeria-upload-form">
+          <div class="row2">
+            <div class="field"><label>Foto</label><input type="file" id="gf_foto" accept="image/*"></div>
+            <div class="field"><label>Nome</label><input type="text" id="gf_nome" placeholder="Opcional"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Curso</label><input type="text" id="gf_curso" placeholder="Opcional"></div>
+            <div class="field"><label>Cidade</label><input type="text" id="gf_cidade" placeholder="Opcional"></div>
+          </div>
+          <div class="field"><label>Distrito</label><input type="text" id="gf_distrito" placeholder="Opcional"></div>
+          <div id="gf_previewWrap" class="hidden reposition-wrap">
+            <div class="reposition-preview foto-enquadrada" id="gf_previewBox"></div>
+            <div class="reposition-hint">Arraste a foto para mover · role o mouse ou use o gesto de pinça (dois dedos) para dar zoom</div>
+            <div class="zoom-controls">
+              <button type="button" class="btn small secondary zoom-btn" id="gf_zoomOut">−</button>
+              <span class="zoom-label" id="gf_zoomLabel">100%</span>
+              <button type="button" class="btn small secondary zoom-btn" id="gf_zoomIn">+</button>
+              <button type="button" class="btn small secondary" id="gf_centralizar" style="flex:0 0 auto;margin-left:auto;">Redefinir</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn small" id="btnSalvar_gf" style="flex:0 0 auto;">Adicionar foto</button>
+            <button class="btn small secondary hidden" id="btnCancelar_gf" style="flex:0 0 auto;">Cancelar edição</button>
+          </div>
+        </div>
+        <div id="msg_gf"></div>
+        <div id="lista_gf" class="galeria-admin-grid"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ======================================================= -->
+<!-- MODAL: DETALHE DO INSCRITO                               -->
+<!-- ======================================================= -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <h3 id="modalTitle">Detalhes da inscrição</h3>
+    <div id="modalBody"></div>
+    <div class="modal-actions" id="modalActionsView">
+      <select id="modalStatusSelect" style="flex:1;background:var(--card);border:1px solid #2c2c30;color:var(--white);padding:10px;border-radius:8px;">
+        <option>Inscrito</option>
+        <option>Em análise</option>
+        <option>Aprovado</option>
+        <option>Reprovado</option>
+        <option>Confirmado</option>
+      </select>
+      <button class="btn small" id="btnSaveStatus" style="flex:0 0 auto;">Salvar status</button>
+      <button class="btn small" id="btnEnviarConfirmacao" style="flex:0 0 auto;background:#25D366;border-color:#25D366;color:#0b1826;">Enviar confirmação no WhatsApp</button>
+      <button class="btn small secondary" id="btnObservacao" style="flex:0 0 auto;">📝 Observação</button>
+      <button class="btn small secondary" id="btnEditReg" style="flex:0 0 auto;">Editar dados</button>
+      <button class="btn small danger" id="btnDeleteReg" style="flex:0 0 auto;">Excluir</button>
+    </div>
+    <div class="modal-actions hidden" id="modalActionsEdit">
+      <button class="btn small" id="btnSaveEdit" style="flex:0 0 auto;">Salvar alterações</button>
+      <button class="btn small secondary" id="btnCancelEdit" style="flex:0 0 auto;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================= -->
+<!-- MODAL: OBSERVAÇÃO SOBRE O CONTATO (leads e inscritos)    -->
+<!-- ======================================================= -->
+<div class="modal-bg" id="notaModalBg">
+  <div class="modal">
+    <button class="modal-close" id="notaModalClose">&times;</button>
+    <h3 id="notaModalTitle">Observação sobre o contato</h3>
+    <textarea id="notaTextarea" rows="7" placeholder="Escreva aqui uma observação sobre esse contato..." style="width:100%;background:var(--card);border:1px solid #2c2c30;color:var(--white);padding:10px;border-radius:8px;font-family:inherit;font-size:14px;resize:vertical;"></textarea>
+    <div class="modal-actions">
+      <button class="btn small" id="btnSalvarNota" style="flex:0 0 auto;">Salvar observação</button>
+      <button class="btn small secondary" id="btnCancelarNota" style="flex:0 0 auto;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
+
+<script src="js/app.js"></script>
+
+<script src="js/scroll-reveal.js"></script>
+
+<script src="js/hero-slideshow.js"></script>
+
+<script src="js/nav.js"></script>
+</body>
+</html>
