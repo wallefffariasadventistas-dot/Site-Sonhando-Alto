@@ -12,7 +12,7 @@
 
 <meta property="og:title" content="Sonhando Alto Piauí">
 <meta property="og:description" content="Conheça o projeto e faça parte dessa missão.">
-<meta property="og:image" content="https://sonhandoalto-mpi.vercel.app/capa-v2.jpg">
+<meta property="og:image" content="https://sonhandoalto-mpi.vercel.app/assets/images/capa-v2.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="675">
 <meta property="og:image:type" content="image/jpeg">
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Sonhando Alto Piauí">
 <meta name="twitter:description" content="Conheça o projeto e faça parte dessa missão.">
-<meta name="twitter:image" content="https://sonhandoalto-mpi.vercel.app/capa-v2.jpg">
+<meta name="twitter:image" content="https://sonhandoalto-mpi.vercel.app/assets/images/capa-v2.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Anton&display=swap" rel="stylesheet">
@@ -1946,7 +1946,7 @@
     <div class="leads-card">
       <h2>Ainda com <span>dúvidas</span>?</h2>
       <p class="leads-sub">Quero receber mais informações</p>
-      <div id="leadMsgArea"></div>
+      <div id="leadMsgArea" role="alert" aria-live="assertive"></div>
 
       <div class="form-progress-wrap">
         <div class="form-progress-track">
@@ -1968,7 +1968,7 @@
         <div class="row2">
           <div class="field" data-field="leadTelefone">
             <label for="lead_telefone">Telefone</label>
-            <input type="text" id="lead_telefone" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15">
+            <input type="text" id="lead_telefone" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15" autocomplete="tel">
             <div class="err-msg">Informe um telefone válido.</div>
           </div>
           <div class="field" data-field="leadIdade">
@@ -1983,7 +1983,7 @@
         <div class="row2">
           <div class="field" data-field="leadCidade">
             <label for="lead_cidade">Cidade</label>
-            <input type="text" id="lead_cidade">
+            <input type="text" id="lead_cidade" autocomplete="address-level2">
             <div class="err-msg">Informe a cidade.</div>
           </div>
           <div class="field" data-field="leadDistrito">
@@ -2016,7 +2016,7 @@
       <p>Preencha todos os campos com atenção. Seus dados serão usados apenas para o processo de recrutamento e acompanhamento do projeto Sonhando Alto.</p>
     </div>
 
-    <div id="formMsgArea"></div>
+    <div id="formMsgArea" role="alert" aria-live="assertive"></div>
 
     <button type="button" class="btn" id="btnScrollToForm" style="margin-bottom:24px;">Preencha os dados abaixo para se inscrever</button>
 
@@ -2066,7 +2066,7 @@
         <div class="row2">
           <div class="field" data-field="nascimento">
             <label for="f_nascimento">Data de nascimento</label>
-            <input type="date" id="f_nascimento">
+            <input type="date" id="f_nascimento" autocomplete="bday">
             <div class="err-msg">Informe a data de nascimento.</div>
           </div>
           <div class="field" data-field="estadoCivil">
@@ -2128,7 +2128,7 @@
       <div class="form-step" data-step="7">
         <div class="field" data-field="whatsapp">
           <label for="f_whatsapp">Telefone WhatsApp</label>
-          <input type="text" id="f_whatsapp" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15">
+          <input type="text" id="f_whatsapp" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15" autocomplete="tel">
           <div class="err-msg">Informe um telefone válido com DDD.</div>
         </div>
       </div>
@@ -2138,12 +2138,12 @@
         <div class="row2">
           <div class="field" data-field="cep">
             <label for="f_cep">CEP</label>
-            <input type="text" id="f_cep" inputmode="numeric" placeholder="00000-000" maxlength="9">
+            <input type="text" id="f_cep" inputmode="numeric" placeholder="00000-000" maxlength="9" autocomplete="postal-code">
             <div class="err-msg">Informe um CEP válido.</div>
           </div>
           <div class="field" data-field="cidade">
             <label for="f_cidade">Cidade</label>
-            <input type="text" id="f_cidade">
+            <input type="text" id="f_cidade" autocomplete="address-level2">
             <div class="err-msg">Informe a cidade.</div>
           </div>
         </div>
@@ -2162,7 +2162,7 @@
       <div class="form-step" data-step="10">
         <div class="field" data-field="endereco">
           <label for="f_endereco">Endereço (rua, número)</label>
-          <input type="text" id="f_endereco">
+          <input type="text" id="f_endereco" autocomplete="street-address">
           <div class="err-msg">Informe o endereço.</div>
         </div>
       </div>
@@ -2299,7 +2299,7 @@
   </div>
   <div class="admin-login">
     <h2>Acesso restrito</h2>
-    <div id="loginMsgArea"></div>
+    <div id="loginMsgArea" role="alert" aria-live="assertive"></div>
     <button class="btn" id="btnLogin" style="display:flex;align-items:center;justify-content:center;gap:10px;">
       <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84c-.21 1.13-.84 2.09-1.8 2.73v2.27h2.92c1.71-1.57 2.68-3.88 2.68-6.64z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.27c-.81.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.34C2.44 15.98 5.48 18 9 18z"/><path fill="#FBBC05" d="M3.97 10.71c-.18-.54-.28-1.11-.28-1.71s.1-1.17.28-1.71V4.95H.96C.35 6.17 0 7.55 0 9s.35 2.83.96 4.05l3.01-2.34z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.51.45 3.44 1.35l2.59-2.59C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.95l3.01 2.34C4.68 5.16 6.66 3.58 9 3.58z"/></svg>
       Entrar com Google
@@ -2389,7 +2389,7 @@
       <p style="color:var(--gray);font-size:13.5px;margin-bottom:20px;max-width:520px;">
         Use esta aba para cadastrar diretamente um jovem que ainda não fez a própria inscrição pelo formulário público — os dados entram na mesma lista de "Inscritos".
       </p>
-      <div id="msgCadastroParticipante"></div>
+      <div id="msgCadastroParticipante" role="alert" aria-live="assertive"></div>
       <div id="camposCadastroParticipante" style="max-width:520px;"></div>
       <button class="btn" id="btnCadastrarParticipante" style="margin-top:6px;max-width:320px;">Cadastrar participante</button>
     </div>
@@ -2403,8 +2403,8 @@
 
       <div id="listaLideres" style="max-width:520px;margin-bottom:24px;"></div>
 
-      <div id="liderLimitMsg" class="hidden" style="max-width:520px;"></div>
-      <div id="msgCadastroLider"></div>
+      <div id="liderLimitMsg" class="hidden" style="max-width:520px;" role="alert" aria-live="assertive"></div>
+      <div id="msgCadastroLider" role="alert" aria-live="assertive"></div>
       <div id="camposCadastroLider" style="max-width:520px;"></div>
       <button class="btn" id="btnCadastrarLider" style="margin-top:6px;max-width:320px;">Cadastrar líder</button>
     </div>
@@ -2841,9 +2841,26 @@ function isValidCPF(cpf){
 }
 function isValidEmail(email){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
 
+/* Marca o campo como inválido (visualmente e para leitor de tela): liga
+   input/select/textarea à mensagem de erro via aria-describedby/aria-invalid,
+   já que o CSS por si só (display:none/block) não é anunciado por leitores de tela. */
+function setFieldError(fieldEl, show){
+  if(!fieldEl) return;
+  fieldEl.classList.toggle('error', show);
+  const input = fieldEl.querySelector('input, select, textarea');
+  const errMsg = fieldEl.querySelector('.err-msg');
+  if(input){
+    input.setAttribute('aria-invalid', show ? 'true' : 'false');
+    if(errMsg){
+      if(!errMsg.id) errMsg.id = (input.id || Math.random().toString(36).slice(2)) + '-erro';
+      input.setAttribute('aria-describedby', errMsg.id);
+    }
+  }
+}
+
 function showFieldError(scopeId, name, show){
   const el = document.querySelector(`#${scopeId} [data-field="${name}"]`);
-  if(el) el.classList.toggle('error', show);
+  setFieldError(el, show);
 }
 
 function coletarDados(prefix){
@@ -4115,7 +4132,7 @@ function validarStepLead(n){
   let valido = true;
   checks.forEach(([nome, ok]) => {
     const el = document.querySelector(`.leads-card [data-field="${nome}"]`);
-    if(el) el.classList.toggle('error', !ok);
+    setFieldError(el, !ok);
     if(!ok) valido = false;
   });
   return valido;
@@ -4177,7 +4194,7 @@ document.getElementById('btnEnviarLead')?.addEventListener('click', async () => 
   let primeiroInvalido = null;
   checks.forEach(([name, ok]) => {
     const el = document.querySelector(`.leads-card [data-field="${name}"]`);
-    if(el) el.classList.toggle('error', !ok);
+    setFieldError(el, !ok);
     if(!ok){ valid = false; if(!primeiroInvalido) primeiroInvalido = name; }
   });
 
