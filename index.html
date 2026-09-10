@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sonhando Alto Piauí</title>
+<title>Sonhando Alto Piauí — 25 Anos Transformando Vidas de Jovens</title>
 <meta name="description" content="Conheça o projeto Sonhando Alto: 25 anos transformando vidas de jovens no Piauí. Faça parte dessa missão.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://sonhandoalto-mpi.vercel.app">
@@ -23,7 +23,8 @@
 <meta name="twitter:description" content="Conheça o projeto e faça parte dessa missão.">
 <meta name="twitter:image" content="https://sonhandoalto-mpi.vercel.app/capa-v2.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Anton&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Anton&display=swap" rel="stylesheet">
 <style>
   :root{
     /* Paleta "Sonhando Alto — 25 anos / Play no Futuro" */
@@ -784,6 +785,9 @@
   }
   @media (max-width:480px){
     .whatsapp-float .wa-icon{width:40px;height:40px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .whatsapp-float, .whatsapp-float .wa-icon{animation:none;}
   }
 
   /* ---------- VÍDEO PROMOCIONAL ---------- */
@@ -1595,7 +1599,7 @@
 </nav>
 
 <div class="nav-drawer-backdrop" id="navBackdrop"></div>
-<div class="nav-drawer" id="navDrawer">
+<div class="nav-drawer" id="navDrawer" role="dialog" aria-modal="true" aria-label="Menu de navegação">
   <button type="button" class="nav-drawer-close" id="navCloseBtn" aria-label="Fechar menu">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
@@ -1633,10 +1637,12 @@
 
     <div class="hero-caption">
       <span class="kicker">Sonhando Alto · 25 anos transformando vidas</span>
-      <h1>
+      <h1 aria-label="Play no Futuro">
+        <span aria-hidden="true">
         <span class="lw" style="animation-delay:.00s">P</span><span class="lw" style="animation-delay:.05s">l</span><span class="lw" style="animation-delay:.10s">a</span><span class="lw" style="animation-delay:.15s">y</span>
         <span class="lw" style="animation-delay:.22s">n</span><span class="lw" style="animation-delay:.27s">o</span>
         <span class="hl"><span class="lw" style="animation-delay:.34s">F</span><span class="lw" style="animation-delay:.39s">u</span><span class="lw" style="animation-delay:.44s">t</span><span class="lw" style="animation-delay:.49s">u</span><span class="lw" style="animation-delay:.54s">r</span><span class="lw" style="animation-delay:.59s">o</span></span>
+        </span>
       </h1>
       <p class="hero-subtitle hero-subtitle--lead">Está preparado para viver uma experiência que pode mudar a sua vida?</p>
     </div>
@@ -1952,7 +1958,7 @@
 
       <div class="form-step" data-step="1">
         <div class="field" data-field="leadNome">
-          <label>Nome</label>
+          <label for="lead_nome">Nome</label>
           <input type="text" id="lead_nome">
           <div class="err-msg">Informe o nome.</div>
         </div>
@@ -1961,12 +1967,12 @@
       <div class="form-step" data-step="2">
         <div class="row2">
           <div class="field" data-field="leadTelefone">
-            <label>Telefone</label>
+            <label for="lead_telefone">Telefone</label>
             <input type="text" id="lead_telefone" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15">
             <div class="err-msg">Informe um telefone válido.</div>
           </div>
           <div class="field" data-field="leadIdade">
-            <label>Idade</label>
+            <label for="lead_idade">Idade</label>
             <input type="number" id="lead_idade" min="1" max="120">
             <div class="err-msg">Informe a idade.</div>
           </div>
@@ -1976,12 +1982,12 @@
       <div class="form-step" data-step="3">
         <div class="row2">
           <div class="field" data-field="leadCidade">
-            <label>Cidade</label>
+            <label for="lead_cidade">Cidade</label>
             <input type="text" id="lead_cidade">
             <div class="err-msg">Informe a cidade.</div>
           </div>
           <div class="field" data-field="leadDistrito">
-            <label>Distrito</label>
+            <label for="lead_distrito">Distrito</label>
             <input type="text" id="lead_distrito">
             <div class="err-msg">Informe o distrito.</div>
           </div>
@@ -1990,7 +1996,7 @@
 
       <div class="form-step" data-step="4">
         <div class="field" data-field="leadEnsinoMedio">
-          <label>Já concluiu o ensino médio?</label>
+          <label for="lead_ensinoMedio">Já concluiu o ensino médio?</label>
           <select id="lead_ensinoMedio">
             <option value="">Selecione</option>
             <option>Sim</option>
@@ -2050,7 +2056,7 @@
         <div class="section-title">Dados pessoais</div>
 
         <div class="field" data-field="nome">
-          <label>Nome completo</label>
+          <label for="f_nome">Nome completo</label>
           <input type="text" id="f_nome" autocomplete="name">
           <div class="err-msg">Informe o nome completo.</div>
         </div>
@@ -2059,12 +2065,12 @@
       <div class="form-step" data-step="3">
         <div class="row2">
           <div class="field" data-field="nascimento">
-            <label>Data de nascimento</label>
+            <label for="f_nascimento">Data de nascimento</label>
             <input type="date" id="f_nascimento">
             <div class="err-msg">Informe a data de nascimento.</div>
           </div>
           <div class="field" data-field="estadoCivil">
-            <label>Estado civil</label>
+            <label for="f_estadoCivil">Estado civil</label>
             <select id="f_estadoCivil">
               <option value="">Selecione</option>
               <option>Solteiro(a)</option>
@@ -2081,12 +2087,12 @@
       <div class="form-step" data-step="4">
         <div class="row2">
           <div class="field" data-field="cpf">
-            <label>CPF</label>
+            <label for="f_cpf">CPF</label>
             <input type="text" id="f_cpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14">
             <div class="err-msg">CPF inválido. Use o formato 000.000.000-00.</div>
           </div>
           <div class="field" data-field="rg">
-            <label>RG</label>
+            <label for="f_rg">RG</label>
             <input type="text" id="f_rg" placeholder="00.000.000-0">
             <div class="err-msg">Informe o RG.</div>
           </div>
@@ -2095,7 +2101,7 @@
 
       <div class="form-step" data-step="5">
         <div class="field" data-field="escolaridade">
-          <label>Escolaridade</label>
+          <label for="f_escolaridade">Escolaridade</label>
           <select id="f_escolaridade">
             <option value="">Selecione</option>
             <option>Fundamental incompleto</option>
@@ -2113,7 +2119,7 @@
       <div class="form-step" data-step="6">
         <div class="section-title">Contato</div>
         <div class="field" data-field="email">
-          <label>E-mail</label>
+          <label for="f_email">E-mail</label>
           <input type="email" id="f_email" autocomplete="email" placeholder="nome@exemplo.com">
           <div class="err-msg">Informe um e-mail válido.</div>
         </div>
@@ -2121,7 +2127,7 @@
 
       <div class="form-step" data-step="7">
         <div class="field" data-field="whatsapp">
-          <label>Telefone WhatsApp</label>
+          <label for="f_whatsapp">Telefone WhatsApp</label>
           <input type="text" id="f_whatsapp" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15">
           <div class="err-msg">Informe um telefone válido com DDD.</div>
         </div>
@@ -2131,12 +2137,12 @@
         <div class="section-title">Endereço</div>
         <div class="row2">
           <div class="field" data-field="cep">
-            <label>CEP</label>
+            <label for="f_cep">CEP</label>
             <input type="text" id="f_cep" inputmode="numeric" placeholder="00000-000" maxlength="9">
             <div class="err-msg">Informe um CEP válido.</div>
           </div>
           <div class="field" data-field="cidade">
-            <label>Cidade</label>
+            <label for="f_cidade">Cidade</label>
             <input type="text" id="f_cidade">
             <div class="err-msg">Informe a cidade.</div>
           </div>
@@ -2145,33 +2151,9 @@
 
       <div class="form-step" data-step="9">
         <div class="field" data-field="distritoPastoral">
-          <label>Distrito Pastoral</label>
+          <label for="f_distritoPastoral">Distrito Pastoral</label>
           <select id="f_distritoPastoral">
             <option value="">Selecione seu distrito</option>
-            <option>Aeroporto – PI</option>
-            <option>Agricolândia</option>
-            <option>Além Rio</option>
-            <option>Boa Esperança – Parnaíba</option>
-            <option>Bom Jesus</option>
-            <option>Campo Maior</option>
-            <option>Central Teresina</option>
-            <option>Dirceu Arco Verde</option>
-            <option>Floriano</option>
-            <option>Guadalupe</option>
-            <option>José de Freitas</option>
-            <option>Luzilândia</option>
-            <option>Monte Castelo</option>
-            <option>Parnaíba</option>
-            <option>Parque Ideal</option>
-            <option>Parque Piauí</option>
-            <option>Passagem das Pedras – Picos</option>
-            <option>Picos</option>
-            <option>Piripiri</option>
-            <option>Porto Alegre</option>
-            <option>Primavera</option>
-            <option>Promorar</option>
-            <option>São Raimundo Nonato</option>
-            <option>Teresina Leste</option>
           </select>
           <div class="err-msg">Selecione seu distrito pastoral.</div>
         </div>
@@ -2179,7 +2161,7 @@
 
       <div class="form-step" data-step="10">
         <div class="field" data-field="endereco">
-          <label>Endereço (rua, número)</label>
+          <label for="f_endereco">Endereço (rua, número)</label>
           <input type="text" id="f_endereco">
           <div class="err-msg">Informe o endereço.</div>
         </div>
@@ -2187,7 +2169,7 @@
 
       <div class="form-step" data-step="11">
         <div class="field" data-field="bairro">
-          <label>Bairro</label>
+          <label for="f_bairro">Bairro</label>
           <input type="text" id="f_bairro">
           <div class="err-msg">Informe o bairro.</div>
         </div>
@@ -2196,14 +2178,14 @@
       <div class="form-step" data-step="12">
         <div class="section-title">Dados da família</div>
         <div class="field" data-field="nomePai">
-          <label>Nome do pai</label>
+          <label for="f_nomePai">Nome do pai</label>
           <input type="text" id="f_nomePai" placeholder="Deixe em branco se não souber">
         </div>
       </div>
 
       <div class="form-step" data-step="13">
         <div class="field" data-field="nomeMae">
-          <label>Nome da mãe</label>
+          <label for="f_nomeMae">Nome da mãe</label>
           <input type="text" id="f_nomeMae">
           <div class="err-msg">Informe o nome da mãe.</div>
         </div>
@@ -2212,7 +2194,7 @@
       <div class="form-step" data-step="14">
         <div class="section-title">Outros</div>
         <div class="field" data-field="camisa">
-          <label>Tamanho de camisa</label>
+          <label for="f_camisa">Tamanho de camisa</label>
           <select id="f_camisa">
             <option value="">Selecione</option>
             <option>PP</option>
@@ -2226,6 +2208,26 @@
         </div>
       </div>
 
+      <div class="form-step" data-step="15">
+        <div class="section-title">Privacidade</div>
+        <details style="margin-bottom:14px;color:var(--gray);font-size:13.5px;line-height:1.6;">
+          <summary style="cursor:pointer;color:var(--gold-light);font-weight:600;">Como usamos seus dados</summary>
+          <p style="margin-top:10px;">
+            Os dados preenchidos neste formulário (nome, data de nascimento, CPF, RG, endereço, contato e nomes dos pais)
+            são usados exclusivamente para organizar sua inscrição no Sonhando Alto, entrar em contato pelo WhatsApp
+            informado e, quando aplicável, encaminhar seu cadastro às universidades parceiras. O acesso é restrito à
+            equipe organizadora do projeto.
+          </p>
+        </details>
+        <div class="field" data-field="consentimentoLgpd">
+          <label style="display:flex;align-items:flex-start;gap:10px;font-weight:400;text-transform:none;letter-spacing:normal;cursor:pointer;">
+            <input type="checkbox" id="f_consentimentoLgpd" style="width:auto;margin-top:3px;flex-shrink:0;">
+            <span>Li e concordo com o uso dos meus dados conforme descrito acima para fins da inscrição no Sonhando Alto.</span>
+          </label>
+          <div class="err-msg">É necessário concordar para enviar a inscrição.</div>
+        </div>
+      </div>
+
       <div class="form-step-nav">
         <button type="button" class="btn secondary" id="btnStepVoltar">← Voltar</button>
         <button type="submit" class="btn hidden" id="btnSubmit">Enviar inscrição</button>
@@ -2236,6 +2238,7 @@
       <div class="icon">✓</div>
       <h2>Inscrição <span class="grad-text">enviada</span>!</h2>
       <p>Recebemos seus dados com sucesso.<br>Em breve nossa equipe entrará em contato pelo WhatsApp informado.</p>
+      <button type="button" class="btn secondary" style="max-width:320px;margin:24px auto 0;" onclick="location.reload()">Fazer nova inscrição</button>
     </div>
 
   </div>
@@ -2507,19 +2510,19 @@
       <div style="margin-bottom:40px;max-width:560px;">
         <div class="section-title" style="margin-top:0;">Títulos das seções (página pública)</div>
         <div class="field">
-          <label>Título — Jovens estudando</label>
+          <label for="titulo_ge">Título — Jovens estudando</label>
           <input type="text" id="titulo_ge" placeholder="Jovens estudando através do Projeto">
         </div>
         <div class="field">
-          <label>Descrição — Jovens estudando</label>
+          <label for="descricao_ge">Descrição — Jovens estudando</label>
           <textarea id="descricao_ge" rows="2" placeholder="Conheça jovens que estão na faculdade por meio do Projeto Sonhando Alto."></textarea>
         </div>
         <div class="field">
-          <label>Título — Galeria de Formados</label>
+          <label for="titulo_gf">Título — Galeria de Formados</label>
           <input type="text" id="titulo_gf" placeholder="Galeria de Formados através do Projeto">
         </div>
         <div class="field">
-          <label>Descrição — Galeria de Formados</label>
+          <label for="descricao_gf">Descrição — Galeria de Formados</label>
           <textarea id="descricao_gf" rows="2" placeholder="Conheça jovens que já realizaram seu sonho da formatura através do Projeto Sonhando Alto."></textarea>
         </div>
         <button class="btn small" id="btnSalvarTitulos" style="flex:0 0 auto;">Salvar títulos</button>
@@ -2530,14 +2533,14 @@
         <div class="section-title" style="margin-top:0;">Jovens estudando através do projeto</div>
         <div id="ge_form" class="galeria-upload-form">
           <div class="row2">
-            <div class="field"><label>Foto</label><input type="file" id="ge_foto" accept="image/*"></div>
-            <div class="field"><label>Nome</label><input type="text" id="ge_nome" placeholder="Opcional"></div>
+            <div class="field"><label for="ge_foto">Foto</label><input type="file" id="ge_foto" accept="image/*"></div>
+            <div class="field"><label for="ge_nome">Nome</label><input type="text" id="ge_nome" placeholder="Opcional"></div>
           </div>
           <div class="row2">
-            <div class="field"><label>Curso</label><input type="text" id="ge_curso" placeholder="Opcional"></div>
-            <div class="field"><label>Cidade</label><input type="text" id="ge_cidade" placeholder="Opcional"></div>
+            <div class="field"><label for="ge_curso">Curso</label><input type="text" id="ge_curso" placeholder="Opcional"></div>
+            <div class="field"><label for="ge_cidade">Cidade</label><input type="text" id="ge_cidade" placeholder="Opcional"></div>
           </div>
-          <div class="field"><label>Distrito</label><input type="text" id="ge_distrito" placeholder="Opcional"></div>
+          <div class="field"><label for="ge_distrito">Distrito</label><input type="text" id="ge_distrito" placeholder="Opcional"></div>
           <div id="ge_previewWrap" class="hidden reposition-wrap">
             <div class="reposition-preview foto-enquadrada" id="ge_previewBox"></div>
             <div class="reposition-hint">Arraste a foto para mover · role o mouse ou use o gesto de pinça (dois dedos) para dar zoom</div>
@@ -2561,14 +2564,14 @@
         <div class="section-title">Galeria de Formados através do projeto</div>
         <div id="gf_form" class="galeria-upload-form">
           <div class="row2">
-            <div class="field"><label>Foto</label><input type="file" id="gf_foto" accept="image/*"></div>
-            <div class="field"><label>Nome</label><input type="text" id="gf_nome" placeholder="Opcional"></div>
+            <div class="field"><label for="gf_foto">Foto</label><input type="file" id="gf_foto" accept="image/*"></div>
+            <div class="field"><label for="gf_nome">Nome</label><input type="text" id="gf_nome" placeholder="Opcional"></div>
           </div>
           <div class="row2">
-            <div class="field"><label>Curso</label><input type="text" id="gf_curso" placeholder="Opcional"></div>
-            <div class="field"><label>Cidade</label><input type="text" id="gf_cidade" placeholder="Opcional"></div>
+            <div class="field"><label for="gf_curso">Curso</label><input type="text" id="gf_curso" placeholder="Opcional"></div>
+            <div class="field"><label for="gf_cidade">Cidade</label><input type="text" id="gf_cidade" placeholder="Opcional"></div>
           </div>
-          <div class="field"><label>Distrito</label><input type="text" id="gf_distrito" placeholder="Opcional"></div>
+          <div class="field"><label for="gf_distrito">Distrito</label><input type="text" id="gf_distrito" placeholder="Opcional"></div>
           <div id="gf_previewWrap" class="hidden reposition-wrap">
             <div class="reposition-preview foto-enquadrada" id="gf_previewBox"></div>
             <div class="reposition-hint">Arraste a foto para mover · role o mouse ou use o gesto de pinça (dois dedos) para dar zoom</div>
@@ -2596,7 +2599,7 @@
 <!-- MODAL: DETALHE DO INSCRITO                               -->
 <!-- ======================================================= -->
 <div class="modal-bg" id="modalBg">
-  <div class="modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <button class="modal-close" id="modalClose">&times;</button>
     <h3 id="modalTitle">Detalhes da inscrição</h3>
     <div id="modalBody"></div>
@@ -2625,7 +2628,7 @@
 <!-- MODAL: OBSERVAÇÃO SOBRE O CONTATO (leads e inscritos)    -->
 <!-- ======================================================= -->
 <div class="modal-bg" id="notaModalBg">
-  <div class="modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="notaModalTitle">
     <button class="modal-close" id="notaModalClose">&times;</button>
     <h3 id="notaModalTitle">Observação sobre o contato</h3>
     <textarea id="notaTextarea" rows="7" placeholder="Escreva aqui uma observação sobre esse contato..." style="width:100%;background:var(--card);border:1px solid #2c2c30;color:var(--white);padding:10px;border-radius:8px;font-family:inherit;font-size:14px;resize:vertical;"></textarea>
@@ -2639,10 +2642,26 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
 
 <script>
+/* Chart.js e XLSX só são usados no painel admin (gráfico de cliques e
+   exportação de Excel). Carregar sob demanda evita esse peso na visita pública. */
+function carregarScriptAdmin(src){
+  if(document.querySelector(`script[src="${src}"]`)) return Promise.resolve();
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+function carregarLibsAdmin(){
+  return Promise.all([
+    carregarScriptAdmin('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'),
+    carregarScriptAdmin('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js')
+  ]).catch(err => console.error('Erro ao carregar bibliotecas do admin:', err.message));
+}
 /* =========================================================
    CONFIGURAÇÃO FIREBASE
    Substitua pelos dados do seu projeto Firebase
@@ -2700,8 +2719,9 @@ if (isAdminRoute) {
       viewAdminLogin.classList.remove('hidden');
     }
   });
-} else {
-  // Conta uma visita cada vez que a página pública é aberta, e identifica a origem do clique
+} else if (!sessionStorage.getItem('visitaContada')) {
+  // Conta uma visita por sessão de navegador (evita inflar o total a cada F5) e identifica a origem do clique
+  sessionStorage.setItem('visitaContada', '1');
   const origemAcesso = detectarOrigemAcesso();
   const hojeStr = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
   db.collection('stats').doc('visitas').set({
@@ -2880,19 +2900,19 @@ function buildCamposHTML(prefix){
     <div class="section-title">Dados pessoais</div>
 
     <div class="field" data-field="nome">
-      <label>Nome completo</label>
+      <label for="${prefix}_nome">Nome completo</label>
       <input type="text" id="${prefix}_nome" autocomplete="name">
       <div class="err-msg">Informe o nome completo.</div>
     </div>
 
     <div class="row2">
       <div class="field" data-field="nascimento">
-        <label>Data de nascimento</label>
-        <input type="date" id="${prefix}_nascimento">
+        <label for="${prefix}_nascimento">Data de nascimento</label>
+        <input type="date" id="${prefix}_nascimento" max="${HOJE_ISO}" min="${MIN_NASCIMENTO_ISO}">
         <div class="err-msg">Informe a data de nascimento.</div>
       </div>
       <div class="field" data-field="estadoCivil">
-        <label>Estado civil</label>
+        <label for="${prefix}_estadoCivil">Estado civil</label>
         <select id="${prefix}_estadoCivil">
           <option value="">Selecione</option>
           <option>Solteiro(a)</option>
@@ -2907,19 +2927,19 @@ function buildCamposHTML(prefix){
 
     <div class="row2">
       <div class="field" data-field="cpf">
-        <label>CPF</label>
+        <label for="${prefix}_cpf">CPF</label>
         <input type="text" id="${prefix}_cpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14">
         <div class="err-msg">CPF inválido. Use o formato 000.000.000-00.</div>
       </div>
       <div class="field" data-field="rg">
-        <label>RG</label>
+        <label for="${prefix}_rg">RG</label>
         <input type="text" id="${prefix}_rg" placeholder="00.000.000-0">
         <div class="err-msg">Informe o RG.</div>
       </div>
     </div>
 
     <div class="field" data-field="escolaridade">
-      <label>Escolaridade</label>
+      <label for="${prefix}_escolaridade">Escolaridade</label>
       <select id="${prefix}_escolaridade">
         <option value="">Selecione</option>
         <option>Fundamental incompleto</option>
@@ -2936,13 +2956,13 @@ function buildCamposHTML(prefix){
     <div class="section-title">Contato</div>
 
     <div class="field" data-field="email">
-      <label>E-mail</label>
+      <label for="${prefix}_email">E-mail</label>
       <input type="email" id="${prefix}_email" autocomplete="email" placeholder="nome@exemplo.com">
       <div class="err-msg">Informe um e-mail válido.</div>
     </div>
 
     <div class="field" data-field="whatsapp">
-      <label>Telefone WhatsApp</label>
+      <label for="${prefix}_whatsapp">Telefone WhatsApp</label>
       <input type="text" id="${prefix}_whatsapp" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15">
       <div class="err-msg">Informe um telefone válido com DDD.</div>
     </div>
@@ -2951,57 +2971,34 @@ function buildCamposHTML(prefix){
 
     <div class="row2">
       <div class="field" data-field="cep">
-        <label>CEP</label>
+        <label for="${prefix}_cep">CEP</label>
         <input type="text" id="${prefix}_cep" inputmode="numeric" placeholder="00000-000" maxlength="9">
         <div class="err-msg">Informe um CEP válido.</div>
       </div>
       <div class="field" data-field="cidade">
-        <label>Cidade</label>
+        <label for="${prefix}_cidade">Cidade</label>
         <input type="text" id="${prefix}_cidade">
         <div class="err-msg">Informe a cidade.</div>
       </div>
     </div>
 
     <div class="field" data-field="distritoPastoral">
-      <label>Distrito Pastoral</label>
+      <label for="${prefix}_distritoPastoral">Distrito Pastoral</label>
       <select id="${prefix}_distritoPastoral">
         <option value="">Selecione o distrito</option>
-        <option>Aeroporto – PI</option>
-        <option>Agricolândia</option>
-        <option>Além Rio</option>
-        <option>Boa Esperança – Parnaíba</option>
-        <option>Bom Jesus</option>
-        <option>Campo Maior</option>
-        <option>Central Teresina</option>
-        <option>Dirceu Arco Verde</option>
-        <option>Floriano</option>
-        <option>Guadalupe</option>
-        <option>José de Freitas</option>
-        <option>Luzilândia</option>
-        <option>Monte Castelo</option>
-        <option>Parnaíba</option>
-        <option>Parque Ideal</option>
-        <option>Parque Piauí</option>
-        <option>Passagem das Pedras – Picos</option>
-        <option>Picos</option>
-        <option>Piripiri</option>
-        <option>Porto Alegre</option>
-        <option>Primavera</option>
-        <option>Promorar</option>
-        <option>São Raimundo Nonato</option>
-        <option>Teresina Leste</option>
+        ${DISTRITOS_PASTORAIS.map(d => `<option>${d}</option>`).join('')}
       </select>
       <div class="err-msg">Selecione o distrito pastoral.</div>
     </div>
 
     <div class="field" data-field="endereco">
-      <label>Endereço (rua, número)</label>
+      <label for="${prefix}_endereco">Endereço (rua, número)</label>
       <input type="text" id="${prefix}_endereco">
       <div class="err-msg">Informe o endereço.</div>
     </div>
 
     <div class="field" data-field="bairro">
-      <label>Bairro</label>
+      <label for="${prefix}_bairro">Bairro</label>
       <input type="text" id="${prefix}_bairro">
       <div class="err-msg">Informe o bairro.</div>
     </div>
@@ -3009,12 +3006,12 @@ function buildCamposHTML(prefix){
     <div class="section-title">Dados da família</div>
 
     <div class="field" data-field="nomePai">
-      <label>Nome do pai</label>
+      <label for="${prefix}_nomePai">Nome do pai</label>
       <input type="text" id="${prefix}_nomePai" placeholder="Deixe em branco se não souber">
     </div>
 
     <div class="field" data-field="nomeMae">
-      <label>Nome da mãe</label>
+      <label for="${prefix}_nomeMae">Nome da mãe</label>
       <input type="text" id="${prefix}_nomeMae">
       <div class="err-msg">Informe o nome da mãe.</div>
     </div>
@@ -3022,7 +3019,7 @@ function buildCamposHTML(prefix){
     <div class="section-title">Outros</div>
 
     <div class="field" data-field="camisa">
-      <label>Tamanho de camisa</label>
+      <label for="${prefix}_camisa">Tamanho de camisa</label>
       <select id="${prefix}_camisa">
         <option value="">Selecione</option>
         <option>PP</option>
@@ -3046,13 +3043,21 @@ function attachMasks(prefix){
   });
 }
 
+const HOJE_ISO = new Date().toISOString().slice(0,10);
+const MIN_NASCIMENTO_ISO = new Date(new Date().setFullYear(new Date().getFullYear()-100)).toISOString().slice(0,10);
+
 function calcIdade(dataNasc){
+  if(!dataNasc) return '';
   const hoje = new Date(); const nasc = new Date(dataNasc);
+  if(isNaN(nasc.getTime())) return '';
   let idade = hoje.getFullYear() - nasc.getFullYear();
   const m = hoje.getMonth() - nasc.getMonth();
   if(m < 0 || (m===0 && hoje.getDate() < nasc.getDate())) idade--;
   return idade;
 }
+
+document.getElementById('f_nascimento')?.setAttribute('max', HOJE_ISO);
+document.getElementById('f_nascimento')?.setAttribute('min', MIN_NASCIMENTO_ISO);
 
 /* =========================================================
    FORMULÁRIO PÚBLICO EM ETAPAS (uma pergunta por vez)
@@ -3063,6 +3068,12 @@ const DISTRITOS_PASTORAIS = [
   'Monte Castelo','Parnaíba','Parque Ideal','Parque Piauí','Passagem das Pedras – Picos','Picos',
   'Piripiri','Porto Alegre','Primavera','Promorar','São Raimundo Nonato','Teresina Leste'
 ];
+
+// Fonte única para os <select> de distrito pastoral (evita listas duplicadas e divergentes)
+document.getElementById('f_distritoPastoral')?.insertAdjacentHTML(
+  'beforeend',
+  DISTRITOS_PASTORAIS.map(d => `<option>${d}</option>`).join('')
+);
 
 const PASTORES_POR_DISTRITO = {
   'Aeroporto – PI': 'Emerson Paulo da Silva',
@@ -3105,7 +3116,8 @@ const FORM_STEPS = [
   ['bairro'],
   ['nomePai'],
   ['nomeMae'],
-  ['camisa']
+  ['camisa'],
+  ['consentimentoLgpd']
 ];
 let stepAtualInscricao = 1;
 let jaMostrouStepInscricaoAntes = false;
@@ -3154,6 +3166,9 @@ function validarStepInscricao(n){
   if(camposDoStep.includes('projeto')){
     checks.push(['projeto', !!document.getElementById('f_projeto')?.value]);
   }
+  if(camposDoStep.includes('consentimentoLgpd')){
+    checks.push(['consentimentoLgpd', !!document.getElementById('f_consentimentoLgpd')?.checked]);
+  }
   let valido = true;
   checks.forEach(([nome, ok]) => { showFieldError('inscricaoForm', nome, !ok); if(!ok) valido = false; });
   if(!valido){
@@ -3168,6 +3183,9 @@ function stepInscricaoValidoSilencioso(n){
   let ok = validarDados(vals).filter(([nome]) => camposDoStep.includes(nome)).every(([, valido]) => valido);
   if(camposDoStep.includes('projeto')){
     ok = ok && !!document.getElementById('f_projeto')?.value;
+  }
+  if(camposDoStep.includes('consentimentoLgpd')){
+    ok = ok && !!document.getElementById('f_consentimentoLgpd')?.checked;
   }
   return ok;
 }
@@ -3218,7 +3236,7 @@ function conectarAutoAvancoDoStep(n, tipo){
         spinner.style.left = bar.style.width;
         spinner.classList.add('ativo');
       }
-      const atraso = 2000;
+      const atraso = 700;
       timerAutoAvanco = setTimeout(() => {
         stepEl.classList.remove('avancando');
         spinner?.classList.remove('ativo');
@@ -3264,8 +3282,10 @@ if(inscricaoForm){
     e.preventDefault();
     const vals = coletarDados('f');
     const projeto = document.getElementById('f_projeto').value;
+    const consentimentoOk = !!document.getElementById('f_consentimentoLgpd')?.checked;
     const checks = validarDados(vals);
     checks.push(['projeto', !!projeto]);
+    checks.push(['consentimentoLgpd', consentimentoOk]);
     let valid = true;
     checks.forEach(([name, ok]) => { showFieldError('inscricaoForm', name, !ok); if(!ok) valid = false; });
 
@@ -3296,6 +3316,7 @@ if(inscricaoForm){
         ...vals,
         idade: calcIdade(vals.nascimento),
         status: 'Inscrito',
+        consentimentoLgpd: true,
         criadoEm: firebase.firestore.FieldValue.serverTimestamp()
       });
       document.getElementById('inscricaoForm').classList.add('hidden');
@@ -3366,6 +3387,7 @@ function inicializarTabs(){
 function showAdminPanel(){
   viewAdminLogin.classList.add('hidden');
   viewAdmin.classList.remove('hidden');
+  carregarLibsAdmin();
   inicializarAbasCadastro();
   inicializarTabs();
 
@@ -3622,10 +3644,15 @@ function renderTable(){
       <td>${r.whatsapp||''}</td>
       <td>${statusCell}</td>
       <td>${data}</td>
-      <td><button class="btn small secondary" onclick="openModal('${r.id}','${r._tipo}')">Ver</button></td>
+      <td><button class="btn small secondary js-ver-inscricao" data-id="${r.id}" data-tipo="${r._tipo}">Ver</button></td>
     </tr>`;
   }).join('');
 }
+
+document.getElementById('tableBody')?.addEventListener('click', e => {
+  const btn = e.target.closest('.js-ver-inscricao');
+  if(btn) openModal(btn.dataset.id, btn.dataset.tipo);
+});
 
 document.getElementById('searchInput')?.addEventListener('input', renderTable);
 document.getElementById('filterStatus')?.addEventListener('change', renderTable);
@@ -3728,6 +3755,7 @@ window.openModal = function(id, tipo){
   }
 
   document.getElementById('modalBg').classList.add('open');
+  document.getElementById('modalClose').focus();
 };
 
 document.getElementById('modalClose').addEventListener('click', () => document.getElementById('modalBg').classList.remove('open'));
@@ -3783,6 +3811,7 @@ window.abrirNota = function(id, tipo){
     : 'Observação sobre o inscrito';
   document.getElementById('notaTextarea').value = (registro && registro.observacao) || '';
   document.getElementById('notaModalBg').classList.add('open');
+  document.getElementById('notaTextarea').focus();
 };
 
 function fecharNotaModal(){
@@ -3952,7 +3981,7 @@ function renderLideresList(){
           <div style="font-family:'Anton',sans-serif;font-size:15px;color:var(--white);">${l.nome || ''}</div>
           <div style="color:var(--gray);font-size:12.5px;margin-top:2px;">${l.cidade || ''}${l.cidade && l.whatsapp ? ' · ' : ''}${l.whatsapp || ''}</div>
         </div>
-        <button class="btn small danger" onclick="removerLider('${l.id}')">Remover</button>
+        <button class="btn small danger js-remover-lider" data-id="${l.id}">Remover</button>
       </div>
     `).join('');
   }
@@ -3965,6 +3994,11 @@ function renderLideresList(){
   campos.style.display = limitReached ? 'none' : '';
   btn.style.display = limitReached ? 'none' : '';
 }
+
+document.getElementById('listaLideres')?.addEventListener('click', e => {
+  const btn = e.target.closest('.js-remover-lider');
+  if(btn) removerLider(btn.dataset.id);
+});
 
 window.removerLider = async function(id){
   if(!confirm('Tem certeza que deseja remover este líder?')) return;
@@ -4281,17 +4315,28 @@ function renderLeadsTable(){
       <td>${l.idade ?? '—'}</td>
       <td>${l.ensinoMedio||'—'}</td>
       <td>
-        <select onchange="atualizarStatusLead('${l.id}', this.value)" style="background:var(--card);border:1px solid #2c2c30;color:var(--white);padding:5px 8px;border-radius:6px;font-size:12.5px;">
+        <select class="js-status-lead" data-id="${l.id}" style="background:var(--card);border:1px solid #2c2c30;color:var(--white);padding:5px 8px;border-radius:6px;font-size:12.5px;">
           <option ${l.status==='Pendente'?'selected':''}>Pendente</option>
           <option ${l.status==='Contatado'?'selected':''}>Contatado</option>
           <option ${l.status==='Aguardando resposta'?'selected':''}>Aguardando resposta</option>
         </select>
-        <button class="btn small secondary" style="margin-top:6px;" onclick="abrirNota('${l.id}','lead')">📝 Observação${l.observacao ? ' ✓' : ''}</button>
+        <button class="btn small secondary js-nota-lead" data-id="${l.id}" style="margin-top:6px;">📝 Observação${l.observacao ? ' ✓' : ''}</button>
       </td>
-      <td><button class="btn small danger" onclick="excluirLead('${l.id}')">Excluir</button></td>
+      <td><button class="btn small danger js-excluir-lead" data-id="${l.id}">Excluir</button></td>
     </tr>
   `).join('');
 }
+
+document.getElementById('leadsTableBody')?.addEventListener('click', e => {
+  const notaBtn = e.target.closest('.js-nota-lead');
+  if(notaBtn){ abrirNota(notaBtn.dataset.id, 'lead'); return; }
+  const excluirBtn = e.target.closest('.js-excluir-lead');
+  if(excluirBtn) excluirLead(excluirBtn.dataset.id);
+});
+document.getElementById('leadsTableBody')?.addEventListener('change', e => {
+  const sel = e.target.closest('.js-status-lead');
+  if(sel) atualizarStatusLead(sel.dataset.id, sel.value);
+});
 
 document.getElementById('leadsSearchInput')?.addEventListener('input', renderLeadsTable);
 document.getElementById('leadsFilterStatus')?.addEventListener('change', renderLeadsTable);
@@ -4364,19 +4409,30 @@ function renderFeriasTable(){
       <td>${r.idade ?? '—'}</td>
       <td>${r.escolaridade||'—'}</td>
       <td>
-        <select onchange="atualizarStatusFerias('${r.id}', this.value)" style="background:var(--card);border:1px solid #2c2c30;color:var(--white);padding:5px 8px;border-radius:6px;font-size:12.5px;">
+        <select class="js-status-ferias" data-id="${r.id}" style="background:var(--card);border:1px solid #2c2c30;color:var(--white);padding:5px 8px;border-radius:6px;font-size:12.5px;">
           <option ${r.status==='Inscrito'?'selected':''}>Inscrito</option>
           <option ${r.status==='Em análise'?'selected':''}>Em análise</option>
           <option ${r.status==='Aprovado'?'selected':''}>Aprovado</option>
           <option ${r.status==='Reprovado'?'selected':''}>Reprovado</option>
           <option ${r.status==='Confirmado'?'selected':''}>Confirmado</option>
         </select>
-        <button class="btn small secondary" style="margin-top:6px;" onclick="abrirNota('${r.id}','ferias')">📝 Observação${r.observacao ? ' ✓' : ''}</button>
+        <button class="btn small secondary js-nota-ferias" data-id="${r.id}" style="margin-top:6px;">📝 Observação${r.observacao ? ' ✓' : ''}</button>
       </td>
-      <td><button class="btn small danger" onclick="excluirFerias('${r.id}')">Excluir</button></td>
+      <td><button class="btn small danger js-excluir-ferias" data-id="${r.id}">Excluir</button></td>
     </tr>
   `).join('');
 }
+
+document.getElementById('feriasTableBody')?.addEventListener('click', e => {
+  const notaBtn = e.target.closest('.js-nota-ferias');
+  if(notaBtn){ abrirNota(notaBtn.dataset.id, 'ferias'); return; }
+  const excluirBtn = e.target.closest('.js-excluir-ferias');
+  if(excluirBtn) excluirFerias(excluirBtn.dataset.id);
+});
+document.getElementById('feriasTableBody')?.addEventListener('change', e => {
+  const sel = e.target.closest('.js-status-ferias');
+  if(sel) atualizarStatusFerias(sel.dataset.id, sel.value);
+});
 
 document.getElementById('feriasSearchInput')?.addEventListener('input', renderFeriasTable);
 document.getElementById('feriasFilterStatus')?.addEventListener('change', renderFeriasTable);
@@ -5123,10 +5179,12 @@ document.getElementById('btnSalvarTitulos')?.addEventListener('click', async () 
   function openDrawer(){
     drawer.classList.add('open');
     backdrop.classList.add('open');
+    if(closeBtn) closeBtn.focus();
   }
   function closeDrawer(){
     drawer.classList.remove('open');
     backdrop.classList.remove('open');
+    if(toggleBtn) toggleBtn.focus();
   }
 
   if(toggleBtn) toggleBtn.addEventListener('click', openDrawer);
@@ -5137,6 +5195,13 @@ document.getElementById('btnSalvarTitulos')?.addEventListener('click', async () 
       a.addEventListener('click', closeDrawer);
     });
   }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && drawer && drawer.classList.contains('open')) closeDrawer();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    document.querySelectorAll('.modal-bg.open').forEach(function(m){ m.classList.remove('open'); });
+  });
 })();
 </script>
 </body>
