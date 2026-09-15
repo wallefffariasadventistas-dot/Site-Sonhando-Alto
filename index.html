@@ -2707,6 +2707,12 @@ const viewAdmin = document.getElementById('viewAdmin');
 
 if (isAdminRoute) {
   viewForm.classList.add('hidden');
+  /* a barra de navegação pública (fixa no topo) e o menu mobile são só da
+     página pública — sem isso, o botão "Inscreva-se agora" fica sobreposto
+     ao cabeçalho do admin (ex: botão "Exportar Excel"). */
+  document.getElementById('siteNav')?.classList.add('hidden');
+  document.getElementById('navDrawer')?.classList.add('hidden');
+  document.getElementById('navBackdrop')?.classList.add('hidden');
   auth.onAuthStateChanged(user => {
     if (user && ALLOWED_ADMIN_EMAILS.includes(user.email)) {
       showAdminPanel();
