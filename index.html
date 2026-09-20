@@ -2433,6 +2433,7 @@
               <th>Distrito</th>
               <th>Idade</th>
               <th>Ensino médio</th>
+              <th>Preenchido em</th>
               <th>Status</th>
               <th></th>
             </tr>
@@ -3656,7 +3657,7 @@ function renderTable(){
   }
 
   tbody.innerHTML = filtered.map(r => {
-    const data = r.criadoEm?.toDate ? r.criadoEm.toDate().toLocaleDateString('pt-BR') : '—';
+    const data = r.criadoEm?.toDate ? r.criadoEm.toDate().toLocaleString('pt-BR', {dateStyle:'short', timeStyle:'short'}) : '—';
     const statusCell = r._tipo === 'lider'
       ? `<span class="status-pill status-Confirmado">★ Líder</span>`
       : `<span class="status-pill ${statusClass(r.status||'Inscrito')}">${r.status||'Inscrito'}</span>`;
@@ -4325,11 +4326,13 @@ function renderLeadsTable(){
 
   const tbody = document.getElementById('leadsTableBody');
   if(filtered.length === 0){
-    tbody.innerHTML = `<tr><td colspan="8" style="color:var(--gray);text-align:center;padding:24px;">Nenhum lead encontrado.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="9" style="color:var(--gray);text-align:center;padding:24px;">Nenhum lead encontrado.</td></tr>`;
     return;
   }
 
-  tbody.innerHTML = filtered.map(l => `
+  tbody.innerHTML = filtered.map(l => {
+    const preenchidoEm = l.criadoEm?.toDate ? l.criadoEm.toDate().toLocaleString('pt-BR', {dateStyle:'short', timeStyle:'short'}) : '—';
+    return `
     <tr>
       <td>${l.nome||''}</td>
       <td>${l.telefone||''}</td>
@@ -4337,6 +4340,7 @@ function renderLeadsTable(){
       <td>${l.distrito||''}</td>
       <td>${l.idade ?? '—'}</td>
       <td>${l.ensinoMedio||'—'}</td>
+      <td>${preenchidoEm}</td>
       <td>
         <select class="js-status-lead" data-id="${l.id}" style="background:var(--card);border:1px solid #2c2c30;color:var(--white);padding:5px 8px;border-radius:6px;font-size:12.5px;">
           <option ${l.status==='Pendente'?'selected':''}>Pendente</option>
@@ -4347,7 +4351,8 @@ function renderLeadsTable(){
       </td>
       <td><button class="btn small danger js-excluir-lead" data-id="${l.id}">Excluir</button></td>
     </tr>
-  `).join('');
+  `;
+  }).join('');
 }
 
 document.getElementById('leadsTableBody')?.addEventListener('click', e => {
