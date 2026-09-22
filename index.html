@@ -2486,18 +2486,33 @@
         Mostra quais distritos pastorais já têm pelo menos um jovem <strong style="color:var(--success);">confirmado</strong> no Sonhando Alto, e quais ainda estão pendentes (sem nenhum jovem confirmado).
       </p>
       <div class="stats" id="distritosResumoArea" style="margin-bottom:20px;"></div>
+
+      <div class="section-title" style="margin-top:0;">✅ Distritos com representante</div>
+      <div class="table-wrap" style="margin-bottom:28px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Distrito</th>
+              <th>Pastor</th>
+              <th>Confirmados</th>
+              <th>Inscritos (todos os status)</th>
+            </tr>
+          </thead>
+          <tbody id="distritosOkTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="section-title">⏳ Distritos pendentes</div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th>Distrito</th>
               <th>Pastor</th>
-              <th>Status</th>
-              <th>Confirmados</th>
               <th>Inscritos (todos os status)</th>
             </tr>
           </thead>
-          <tbody id="distritosTableBody"></tbody>
+          <tbody id="distritosPendentesTableBody"></tbody>
         </table>
       </div>
     </div>
@@ -3571,38 +3586,47 @@ function renderInscritosView(){
    ABA DISTRITOS — cobertura de distritos pastorais
 ========================================================= */
 function renderDistritosView(){
-  const tbody = document.getElementById('distritosTableBody');
+  const tbodyOk = document.getElementById('distritosOkTableBody');
+  const tbodyPendentes = document.getElementById('distritosPendentesTableBody');
   const resumoEl = document.getElementById('distritosResumoArea');
-  if(!tbody || !resumoEl) return;
+  if(!tbodyOk || !tbodyPendentes || !resumoEl) return;
 
-  let comConfirmado = 0;
+  const comRepresentante = [];
+  const pendentes = [];
 
-  const linhas = DISTRITOS_PASTORAIS.map(distrito => {
+  DISTRITOS_PASTORAIS.forEach(distrito => {
     const doDistrito = allRegs.filter(r => r.distritoPastoral === distrito);
     const confirmados = doDistrito.filter(r => r.status === 'Confirmado').length;
     const totalInscritos = doDistrito.length;
-    const ok = confirmados > 0;
-    if(ok) comConfirmado++;
-    return `
+    const linha = { distrito, pastor: PASTORES_POR_DISTRITO[distrito] || '—', confirmados, totalInscritos };
+    (confirmados > 0 ? comRepresentante : pendentes).push(linha);
+  });
+
+  tbodyOk.innerHTML = comRepresentante.length
+    ? comRepresentante.map(l => `
       <tr>
-        <td>${distrito}</td>
-        <td>${PASTORES_POR_DISTRITO[distrito] || '—'}</td>
-        <td>${ok
-          ? '<span style="color:var(--success);font-weight:600;">✅ OK</span>'
-          : '<span style="color:var(--warn);font-weight:600;">⏳ Pendente</span>'}</td>
-        <td>${confirmados}</td>
-        <td>${totalInscritos}</td>
+        <td>${l.distrito}</td>
+        <td>${l.pastor}</td>
+        <td>${l.confirmados}</td>
+        <td>${l.totalInscritos}</td>
       </tr>
-    `;
-  }).join('');
+    `).join('')
+    : `<tr><td colspan="4" style="color:var(--gray);text-align:center;padding:16px;">Nenhum distrito com representante confirmado ainda.</td></tr>`;
 
-  tbody.innerHTML = linhas;
+  tbodyPendentes.innerHTML = pendentes.length
+    ? pendentes.map(l => `
+      <tr>
+        <td>${l.distrito}</td>
+        <td>${l.pastor}</td>
+        <td>${l.totalInscritos}</td>
+      </tr>
+    `).join('')
+    : `<tr><td colspan="3" style="color:var(--gray);text-align:center;padding:16px;">Todos os distritos já têm representante 🎉</td></tr>`;
 
-  const semNenhum = DISTRITOS_PASTORAIS.length - comConfirmado;
   resumoEl.innerHTML = `
     <div class="stat-card"><div class="num">${DISTRITOS_PASTORAIS.length}</div><div class="lbl">Total de distritos</div></div>
-    <div class="stat-card"><div class="num" style="color:var(--success);">${comConfirmado}</div><div class="lbl">Com jovem confirmado</div></div>
-    <div class="stat-card"><div class="num" style="color:var(--warn);">${semNenhum}</div><div class="lbl">Ainda pendentes</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--success);">${comRepresentante.length}</div><div class="lbl">Com jovem confirmado</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--warn);">${pendentes.length}</div><div class="lbl">Ainda pendentes</div></div>
   `;
 }
 
