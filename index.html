@@ -2485,6 +2485,7 @@
       <p style="color:var(--gray);font-size:13.5px;margin-bottom:20px;max-width:640px;">
         Mostra quais distritos pastorais já têm pelo menos um jovem <strong style="color:var(--success);">confirmado</strong> no Sonhando Alto, e quais ainda estão pendentes (sem nenhum jovem confirmado).
       </p>
+      <button class="btn small secondary" id="btnPdfDistritos" style="max-width:220px;margin-bottom:20px;">📄 Baixar PDF</button>
       <div class="stats" id="distritosResumoArea" style="margin-bottom:20px;"></div>
 
       <div class="section-title" style="margin-top:0;">✅ Distritos com representante</div>
@@ -3629,6 +3630,99 @@ function renderDistritosView(){
     <div class="stat-card"><div class="num" style="color:var(--warn);">${pendentes.length}</div><div class="lbl">Ainda pendentes</div></div>
   `;
 }
+
+/* Nome curto (primeiro nome + inicial do último) para o PDF — evita expor o
+   nome completo de menores num arquivo que pode circular fora do painel. */
+function abreviarNome(nomeCompleto){
+  const partes = (nomeCompleto || '').trim().split(/\s+/).filter(Boolean);
+  if(partes.length === 0) return '—';
+  if(partes.length === 1) return partes[0];
+  return `${partes[0]} ${partes[partes.length - 1][0]}.`;
+}
+
+async function gerarPdfDistritos(){
+  const btn = document.getElementById('btnPdfDistritos');
+  if(btn){ btn.disabled = true; btn.textContent = 'Gerando PDF...'; }
+  try {
+    await carregarScriptAdmin('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+    await carregarScriptAdmin('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js');
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const comRepresentante = [];
+    const pendentes = [];
+    DISTRITOS_PASTORAIS.forEach(distrito => {
+      const confirmados = allRegs.filter(r => r.distritoPastoral === distrito && r.status === 'Confirmado');
+      if(confirmados.length > 0){
+        comRepresentante.push({
+          distrito,
+          jovens: confirmados.map(r => ({ nome: abreviarNome(r.nome), whatsapp: r.whatsapp || '—' }))
+        });
+      } else {
+        pendentes.push(distrito);
+      }
+    });
+
+    doc.setFontSize(16);
+    doc.text('Sonhando Alto — Distritos Pastorais', 14, 18);
+    doc.setFontSize(10);
+    doc.setTextColor(120);
+    doc.text(`Gerado em ${new Date().toLocaleDateString('pt-BR')}`, 14, 24);
+    doc.setTextColor(0);
+
+    let cursorY = 34;
+    doc.setFontSize(12);
+    doc.text(`Distritos com representante (${comRepresentante.length})`, 14, cursorY);
+    cursorY += 4;
+
+    const linhasOk = [];
+    comRepresentante.forEach(({ distrito, jovens }) => {
+      jovens.forEach(j => linhasOk.push([distrito, j.nome, j.whatsapp]));
+    });
+
+    if(linhasOk.length){
+      doc.autoTable({
+        startY: cursorY + 2,
+        head: [['Distrito', 'Jovem', 'WhatsApp']],
+        body: linhasOk,
+        theme: 'grid',
+        styles: { fontSize: 9 },
+        headStyles: { fillColor: [242, 183, 5], textColor: [30, 20, 0] }
+      });
+      cursorY = doc.lastAutoTable.finalY + 14;
+    } else {
+      doc.setFontSize(10);
+      doc.text('Nenhum distrito com representante confirmado ainda.', 14, cursorY + 6);
+      cursorY += 18;
+    }
+
+    doc.setFontSize(12);
+    doc.text(`Distritos pendentes (${pendentes.length})`, 14, cursorY);
+    cursorY += 2;
+
+    if(pendentes.length){
+      doc.autoTable({
+        startY: cursorY + 2,
+        head: [['Distritos sem representante confirmado']],
+        body: pendentes.map(d => [d]),
+        theme: 'grid',
+        styles: { fontSize: 9 },
+        headStyles: { fillColor: [224, 87, 74], textColor: [255, 255, 255] }
+      });
+    } else {
+      doc.setFontSize(10);
+      doc.text('Todos os distritos já têm representante.', 14, cursorY + 6);
+    }
+
+    doc.save(`distritos-sonhando-alto-${new Date().toISOString().slice(0, 10)}.pdf`);
+  } catch(err){
+    alert('Erro ao gerar PDF: ' + err.message);
+  }
+  if(btn){ btn.disabled = false; btn.textContent = '📄 Baixar PDF'; }
+}
+
+document.getElementById('btnPdfDistritos')?.addEventListener('click', gerarPdfDistritos);
 
 function renderStats(){
   const unified = getUnifiedList();
