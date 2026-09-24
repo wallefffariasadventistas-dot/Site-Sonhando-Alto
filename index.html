@@ -188,34 +188,12 @@
     transition:width .35s ease;
     width:0%;
   }
-  .form-progress-spinner{
-    position:absolute;
-    top:50%;
-    width:14px;height:14px;
-    margin-top:-7px;
-    border-radius:50%;
-    border:2px solid rgba(255,255,255,.3);
-    border-top-color:var(--gold-light);
-    transform:translateX(-50%);
-    display:none;
-    pointer-events:none;
-    animation:formSpinnerGirar 1s linear infinite;
-  }
-  .form-progress-spinner.ativo{display:block;}
-  @keyframes formSpinnerGirar{
-    from{transform:translateX(-50%) rotate(0deg);}
-    to{transform:translateX(-50%) rotate(360deg);}
-  }
   .form-step-counter{
     display:none;
   }
   .form-step{
     animation:formStepIn .3s ease;
     transition:opacity .2s ease;
-  }
-  .form-step.avancando{
-    opacity:.45;
-    pointer-events:none;
   }
   @keyframes formStepIn{
     from{opacity:0; transform:translateX(14px);}
@@ -1952,7 +1930,6 @@
         <div class="form-progress-track">
           <div class="form-progress-bar" id="leadProgressBar"></div>
         </div>
-        <div class="form-progress-spinner" id="leadProgressSpinner"></div>
       </div>
       <div class="form-step-counter" id="leadStepCounter">Pergunta 1 de 4</div>
 
@@ -2008,6 +1985,7 @@
 
       <div class="form-step-nav">
         <button type="button" class="btn secondary" id="btnLeadVoltar">← Voltar</button>
+        <button type="button" class="btn" id="btnLeadAvancar">Avançar →</button>
         <button type="button" class="btn hidden" id="btnEnviarLead">Quero saber mais</button>
       </div>
     </div>
@@ -2026,7 +2004,6 @@
         <div class="form-progress-track">
           <div class="form-progress-bar" id="formProgressBar"></div>
         </div>
-        <div class="form-progress-spinner" id="formProgressSpinner"></div>
       </div>
       <div class="form-step-counter" id="formStepCounter">Pergunta 1 de 14</div>
 
@@ -2230,6 +2207,7 @@
 
       <div class="form-step-nav">
         <button type="button" class="btn secondary" id="btnStepVoltar">← Voltar</button>
+        <button type="button" class="btn" id="btnStepAvancar">Avançar →</button>
         <button type="submit" class="btn hidden" id="btnSubmit">Enviar inscrição</button>
       </div>
     </form>
@@ -3177,16 +3155,16 @@ function mostrarStepInscricao(n){
   const steps = document.querySelectorAll('#inscricaoForm .form-step');
   const total = steps.length;
   steps.forEach(s => s.classList.toggle('hidden', parseInt(s.dataset.step, 10) !== n));
-  steps.forEach(s => s.classList.remove('avancando'));
-  document.getElementById('formProgressSpinner')?.classList.remove('ativo');
 
   const bar = document.getElementById('formProgressBar');
   if(bar) bar.style.width = (n / total * 100) + '%';
 
   const btnVoltar = document.getElementById('btnStepVoltar');
+  const btnAvancar = document.getElementById('btnStepAvancar');
   const btnEnviar = document.getElementById('btnSubmit');
   const ultimo = (n === total);
   if(btnVoltar) btnVoltar.style.visibility = (n === 1) ? 'hidden' : 'visible';
+  if(btnAvancar) btnAvancar.classList.toggle('hidden', ultimo);
   if(btnEnviar) btnEnviar.classList.toggle('hidden', !ultimo);
 
   document.getElementById('formMsgArea').innerHTML = '';
@@ -3195,8 +3173,6 @@ function mostrarStepInscricao(n){
      (avançando/voltando etapas) — não na primeira vez que a página carrega */
   if(form && jaMostrouStepInscricaoAntes) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
   jaMostrouStepInscricaoAntes = true;
-
-  if(!ultimo) conectarAutoAvancoDoStep(n, 'inscricao');
 }
 
 function validarStepInscricao(n){
@@ -3217,21 +3193,7 @@ function validarStepInscricao(n){
   return valido;
 }
 
-function stepInscricaoValidoSilencioso(n){
-  const camposDoStep = FORM_STEPS[n - 1];
-  const vals = coletarDados('f');
-  let ok = validarDados(vals).filter(([nome]) => camposDoStep.includes(nome)).every(([, valido]) => valido);
-  if(camposDoStep.includes('projeto')){
-    ok = ok && !!document.getElementById('f_projeto')?.value;
-  }
-  if(camposDoStep.includes('consentimentoLgpd')){
-    ok = ok && !!document.getElementById('f_consentimentoLgpd')?.checked;
-  }
-  return ok;
-}
-
 document.getElementById('btnStepVoltar')?.addEventListener('click', () => {
-  cancelarAutoAvanco();
   if(stepAtualInscricao > 1){
     stepAtualInscricao--;
     mostrarStepInscricao(stepAtualInscricao);
@@ -3239,76 +3201,29 @@ document.getElementById('btnStepVoltar')?.addEventListener('click', () => {
 });
 
 /* =========================================================
-   AVANÇO AUTOMÁTICO ENTRE PERGUNTAS
-   Ao terminar de responder, o sistema aguarda um instante
-   (dando a impressão de "carregando") e passa sozinho para
-   a próxima pergunta — sem precisar de botão "Próxima".
+   AVANÇO ENTRE PERGUNTAS — só quando a pessoa clica em
+   "Avançar" (ou aperta Enter). Nada de avanço automático:
+   assim ninguém é "empurrado" para a próxima pergunta
+   enquanto ainda está digitando.
 ========================================================= */
-let timerAutoAvanco = null;
-
-function cancelarAutoAvanco(){
-  clearTimeout(timerAutoAvanco);
-  document.querySelectorAll('.form-step.avancando').forEach(s => s.classList.remove('avancando'));
-  document.querySelectorAll('.form-progress-spinner.ativo').forEach(s => s.classList.remove('ativo'));
+function avancarStepInscricao(){
+  if(stepAtualInscricao < FORM_STEPS.length){
+    if(validarStepInscricao(stepAtualInscricao)){
+      stepAtualInscricao++;
+      mostrarStepInscricao(stepAtualInscricao);
+    }
+  } else {
+    document.getElementById('btnSubmit')?.click();
+  }
 }
 
-function conectarAutoAvancoDoStep(n, tipo){
-  const scope = tipo === 'inscricao' ? '#inscricaoForm' : '.leads-card';
-  const stepEl = document.querySelector(`${scope} .form-step[data-step="${n}"]`);
-  if(!stepEl || stepEl.dataset.jaConectou === '1') return;
-  stepEl.dataset.jaConectou = '1';
+document.getElementById('btnStepAvancar')?.addEventListener('click', avancarStepInscricao);
 
-  const campos = Array.from(stepEl.querySelectorAll('input, select'));
-  campos.forEach(campo => {
-    const eventoFinal = (campo.tagName === 'SELECT' || campo.type === 'date') ? 'change' : 'input';
-    campo.addEventListener(eventoFinal, () => {
-      const stepAtual = tipo === 'inscricao' ? stepAtualInscricao : stepAtualLead;
-      if(stepAtual !== n) return;
-      cancelarAutoAvanco();
-
-      const valido = tipo === 'inscricao' ? stepInscricaoValidoSilencioso(n) : stepLeadValidoSilencioso(n);
-      if(!valido) return;
-
-      const bar = document.getElementById(tipo === 'inscricao' ? 'formProgressBar' : 'leadProgressBar');
-      const spinner = document.getElementById(tipo === 'inscricao' ? 'formProgressSpinner' : 'leadProgressSpinner');
-      stepEl.classList.add('avancando');
-      if(spinner && bar){
-        spinner.style.left = bar.style.width;
-        spinner.classList.add('ativo');
-      }
-      const atraso = 700;
-      timerAutoAvanco = setTimeout(() => {
-        stepEl.classList.remove('avancando');
-        spinner?.classList.remove('ativo');
-        if(tipo === 'inscricao'){
-          if(stepAtualInscricao === n && stepAtualInscricao < FORM_STEPS.length){
-            stepAtualInscricao++;
-            mostrarStepInscricao(stepAtualInscricao);
-          }
-        } else {
-          if(stepAtualLead === n && stepAtualLead < LEAD_STEPS.length){
-            stepAtualLead++;
-            mostrarStepLead(stepAtualLead);
-          }
-        }
-      }, atraso);
-    });
-  });
-}
-
-/* Enter no teclado avança imediatamente para a próxima pergunta (sem esperar) */
+/* Enter no teclado equivale a clicar em "Avançar" */
 document.getElementById('inscricaoForm')?.addEventListener('keydown', e => {
   if(e.key === 'Enter' && e.target.tagName !== 'TEXTAREA'){
     e.preventDefault();
-    cancelarAutoAvanco();
-    if(stepAtualInscricao < FORM_STEPS.length){
-      if(validarStepInscricao(stepAtualInscricao)){
-        stepAtualInscricao++;
-        mostrarStepInscricao(stepAtualInscricao);
-      }
-    } else {
-      document.getElementById('btnSubmit')?.click();
-    }
+    avancarStepInscricao();
   }
 });
 
@@ -4232,22 +4147,20 @@ function mostrarStepLead(n){
   const steps = document.querySelectorAll('.leads-card .form-step');
   const total = steps.length;
   steps.forEach(s => s.classList.toggle('hidden', parseInt(s.dataset.step, 10) !== n));
-  steps.forEach(s => s.classList.remove('avancando'));
-  document.getElementById('leadProgressSpinner')?.classList.remove('ativo');
 
   const bar = document.getElementById('leadProgressBar');
   if(bar) bar.style.width = (n / total * 100) + '%';
 
   const btnVoltar = document.getElementById('btnLeadVoltar');
+  const btnAvancar = document.getElementById('btnLeadAvancar');
   const btnEnviar = document.getElementById('btnEnviarLead');
   const ultimo = (n === total);
   if(btnVoltar) btnVoltar.style.visibility = (n === 1) ? 'hidden' : 'visible';
+  if(btnAvancar) btnAvancar.classList.toggle('hidden', ultimo);
   if(btnEnviar) btnEnviar.classList.toggle('hidden', !ultimo);
 
   const msgArea = document.getElementById('leadMsgArea');
   if(msgArea) msgArea.innerHTML = '';
-
-  if(!ultimo) conectarAutoAvancoDoStep(n, 'lead');
 }
 
 function validarStepLead(n){
@@ -4263,33 +4176,31 @@ function validarStepLead(n){
   return valido;
 }
 
-function stepLeadValidoSilencioso(n){
-  const camposDoStep = LEAD_STEPS[n - 1];
-  const vals = coletarDadosLead();
-  return validarDadosLead(vals).filter(([nome]) => camposDoStep.includes(nome)).every(([, ok]) => ok);
-}
-
 document.getElementById('btnLeadVoltar')?.addEventListener('click', () => {
-  cancelarAutoAvanco();
   if(stepAtualLead > 1){
     stepAtualLead--;
     mostrarStepLead(stepAtualLead);
   }
 });
 
-/* Enter no teclado avança imediatamente para a próxima pergunta (sem esperar) */
+function avancarStepLead(){
+  if(stepAtualLead < LEAD_STEPS.length){
+    if(validarStepLead(stepAtualLead)){
+      stepAtualLead++;
+      mostrarStepLead(stepAtualLead);
+    }
+  } else {
+    document.getElementById('btnEnviarLead')?.click();
+  }
+}
+
+document.getElementById('btnLeadAvancar')?.addEventListener('click', avancarStepLead);
+
+/* Enter no teclado equivale a clicar em "Avançar" */
 document.querySelector('.leads-card')?.addEventListener('keydown', e => {
   if(e.key === 'Enter' && e.target.tagName !== 'TEXTAREA'){
     e.preventDefault();
-    cancelarAutoAvanco();
-    if(stepAtualLead < LEAD_STEPS.length){
-      if(validarStepLead(stepAtualLead)){
-        stepAtualLead++;
-        mostrarStepLead(stepAtualLead);
-      }
-    } else {
-      document.getElementById('btnEnviarLead')?.click();
-    }
+    avancarStepLead();
   }
 });
 
