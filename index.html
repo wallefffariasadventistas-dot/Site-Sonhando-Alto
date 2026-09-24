@@ -1414,42 +1414,6 @@
     margin-top:2px;
   }
 
-  /* ---------- FORMULÁRIO DE LEADS (Quero receber mais informações) ---------- */
-  .leads-card{
-    max-width:640px;
-    margin-left:auto;
-    margin-right:auto;
-    background:linear-gradient(160deg, rgba(255,255,255,.05), var(--card) 55%);
-    border-radius:20px;
-    padding:28px 24px;
-    margin-bottom:34px;
-    backdrop-filter:blur(14px);
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.08),
-      0 24px 48px -20px rgba(0,0,0,.6);
-  }
-  .leads-card h2{
-    font-size:21px;
-    color:var(--white);
-    margin-bottom:6px;
-    text-align:center;
-  }
-  .leads-card h2 span{
-    background:var(--gold-light);
-    color:#241a00;
-    padding:1px 9px;
-    border-radius:2px;
-    font-weight:700;
-    box-decoration-break:clone;
-    -webkit-box-decoration-break:clone;
-  }
-  .leads-card .leads-sub{
-    text-align:center;
-    color:var(--gray);
-    font-size:14px;
-    margin-bottom:22px;
-  }
-
   /* ---------- ADMIN ---------- */
   .admin-login{max-width:380px;margin:60px auto;padding:0 18px;}
   .admin-login h2{font-size:20px;color:var(--gold-light);margin-bottom:20px;text-align:center;}
@@ -1921,75 +1885,6 @@
 
   <div class="container" id="inscreva-se">
 
-    <div class="leads-card">
-      <h2>Ainda com <span>dúvidas</span>?</h2>
-      <p class="leads-sub">Quero receber mais informações</p>
-      <div id="leadMsgArea" role="alert" aria-live="assertive"></div>
-
-      <div class="form-progress-wrap">
-        <div class="form-progress-track">
-          <div class="form-progress-bar" id="leadProgressBar"></div>
-        </div>
-      </div>
-      <div class="form-step-counter" id="leadStepCounter">Pergunta 1 de 4</div>
-
-      <div class="form-step" data-step="1">
-        <div class="field" data-field="leadNome">
-          <label for="lead_nome">Nome</label>
-          <input type="text" id="lead_nome">
-          <div class="err-msg">Informe o nome.</div>
-        </div>
-      </div>
-
-      <div class="form-step" data-step="2">
-        <div class="row2">
-          <div class="field" data-field="leadTelefone">
-            <label for="lead_telefone">Telefone</label>
-            <input type="text" id="lead_telefone" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15" autocomplete="tel">
-            <div class="err-msg">Informe um telefone válido.</div>
-          </div>
-          <div class="field" data-field="leadIdade">
-            <label for="lead_idade">Idade</label>
-            <input type="number" id="lead_idade" min="1" max="120">
-            <div class="err-msg">Informe a idade.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-step" data-step="3">
-        <div class="row2">
-          <div class="field" data-field="leadCidade">
-            <label for="lead_cidade">Cidade</label>
-            <input type="text" id="lead_cidade" autocomplete="address-level2">
-            <div class="err-msg">Informe a cidade.</div>
-          </div>
-          <div class="field" data-field="leadDistrito">
-            <label for="lead_distrito">Distrito</label>
-            <input type="text" id="lead_distrito">
-            <div class="err-msg">Informe o distrito.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-step" data-step="4">
-        <div class="field" data-field="leadEnsinoMedio">
-          <label for="lead_ensinoMedio">Já concluiu o ensino médio?</label>
-          <select id="lead_ensinoMedio">
-            <option value="">Selecione</option>
-            <option>Sim</option>
-            <option>Não</option>
-          </select>
-          <div class="err-msg">Selecione uma opção.</div>
-        </div>
-      </div>
-
-      <div class="form-step-nav">
-        <button type="button" class="btn secondary" id="btnLeadVoltar">← Voltar</button>
-        <button type="button" class="btn" id="btnLeadAvancar">Avançar →</button>
-        <button type="button" class="btn hidden" id="btnEnviarLead">Quero saber mais</button>
-      </div>
-    </div>
-
     <div id="formIntro" class="intro">
       <p>Preencha todos os campos com atenção. Seus dados serão usados apenas para o processo de recrutamento e acompanhamento do projeto Sonhando Alto.</p>
     </div>
@@ -2318,7 +2213,6 @@
       <button class="tab-btn active" data-tab="tabInscritos">Inscritos</button>
       <button class="tab-btn" data-tab="tabCadastroParticipante">Cadastrar participante</button>
       <button class="tab-btn" data-tab="tabCadastroLider">Cadastrar líder</button>
-      <button class="tab-btn" data-tab="tabLeads">Leads</button>
       <button class="tab-btn" data-tab="tabFerias">Férias Universitária</button>
       <button class="tab-btn" data-tab="tabDistritos">Distritos</button>
       <button class="tab-btn" data-tab="tabGaleria">Galeria de Fotos</button>
@@ -2385,40 +2279,6 @@
       <div id="msgCadastroLider" role="alert" aria-live="assertive"></div>
       <div id="camposCadastroLider" style="max-width:520px;"></div>
       <button class="btn" id="btnCadastrarLider" style="margin-top:6px;max-width:320px;">Cadastrar líder</button>
-    </div>
-
-    <!-- ABA: LEADS (interessados a contatar) -->
-    <div id="tabLeads" class="tab-panel hidden">
-      <div class="stats" id="leadsStatsArea"></div>
-
-      <div class="toolbar">
-        <input type="text" id="leadsSearchInput" placeholder="Buscar por nome, telefone ou cidade...">
-        <select id="leadsFilterStatus">
-          <option value="">Todos os status</option>
-          <option>Pendente</option>
-          <option>Contatado</option>
-          <option>Aguardando resposta</option>
-        </select>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Telefone</th>
-              <th>Cidade</th>
-              <th>Distrito</th>
-              <th>Idade</th>
-              <th>Ensino médio</th>
-              <th>Preenchido em</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="leadsTableBody"></tbody>
-        </table>
-      </div>
     </div>
 
     <!-- ABA: FÉRIAS UNIVERSITÁRIA (inscritos que escolheram esse projeto no formulário) -->
@@ -2620,7 +2480,7 @@
 </div>
 
 <!-- ======================================================= -->
-<!-- MODAL: OBSERVAÇÃO SOBRE O CONTATO (leads e inscritos)    -->
+<!-- MODAL: OBSERVAÇÃO SOBRE O CONTATO (inscritos)              -->
 <!-- ======================================================= -->
 <div class="modal-bg" id="notaModalBg">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="notaModalTitle">
@@ -2677,7 +2537,6 @@ const db = firebase.firestore();
 const auth = firebase.auth();
 const COLLECTION = "inscricoes_sonhandoalto";
 const LIDERES_COLLECTION = "lideres_sonhandoalto";
-const LEADS_COLLECTION = "leads_sonhandoalto";
 const ESTUDANTES_COLLECTION = "estudantes_sonhandoalto";
 const FORMADOS_COLLECTION = "formados_sonhandoalto";
 const CONFIG_COLLECTION = "configuracoes_sonhandoalto";
@@ -3313,8 +3172,6 @@ let allRegs = [];
 let unsubscribe = null;
 let allLideres = [];
 let unsubscribeLideres = null;
-let allLeads = [];
-let unsubscribeLeads = null;
 let allFerias = [];
 let unsubscribeFerias = null;
 let camposCadastroInicializados = false;
@@ -3363,15 +3220,6 @@ function showAdminPanel(){
       renderInscritosView();
     }, err => {
       document.getElementById('listaLideres').innerHTML = `<div class="msg-banner error">Erro ao carregar líderes: ${err.message}</div>`;
-    });
-
-  if(unsubscribeLeads) unsubscribeLeads();
-  unsubscribeLeads = db.collection(LEADS_COLLECTION).orderBy('criadoEm','desc')
-    .onSnapshot(snap => {
-      allLeads = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      renderLeadsView();
-    }, err => {
-      document.getElementById('leadsTableBody').innerHTML = `<tr><td colspan="8">Erro ao carregar: ${err.message}</td></tr>`;
     });
 
   if(unsubscribeFerias) unsubscribeFerias();
@@ -3852,19 +3700,17 @@ document.getElementById('btnObservacao').addEventListener('click', () => {
   window.abrirNota(currentRegId, 'inscrito');
 });
 
-/* ---------- OBSERVAÇÃO SOBRE O CONTATO (leads e inscritos) ---------- */
+/* ---------- OBSERVAÇÃO SOBRE O CONTATO (inscritos) ---------- */
 let notaTargetId = null;
-let notaTargetTipo = null; // 'lead', 'inscrito' ou 'ferias'
+let notaTargetTipo = null; // 'inscrito' ou 'ferias'
 
 window.abrirNota = function(id, tipo){
   notaTargetId = id;
   notaTargetTipo = tipo;
-  const registro = tipo === 'lead' ? allLeads.find(x => x.id === id)
-    : tipo === 'ferias' ? allFerias.find(x => x.id === id)
+  const registro = tipo === 'ferias' ? allFerias.find(x => x.id === id)
     : allRegs.find(x => x.id === id);
-  document.getElementById('notaModalTitle').textContent = tipo === 'lead'
-    ? 'Observação sobre o lead'
-    : tipo === 'ferias' ? 'Observação sobre o inscrito (Férias Universitária)'
+  document.getElementById('notaModalTitle').textContent = tipo === 'ferias'
+    ? 'Observação sobre o inscrito (Férias Universitária)'
     : 'Observação sobre o inscrito';
   document.getElementById('notaTextarea').value = (registro && registro.observacao) || '';
   document.getElementById('notaModalBg').classList.add('open');
@@ -3884,15 +3730,11 @@ document.getElementById('notaModalBg').addEventListener('click', e => { if(e.tar
 document.getElementById('btnSalvarNota').addEventListener('click', async () => {
   if(!notaTargetId) return;
   const texto = document.getElementById('notaTextarea').value.trim();
-  const collectionName = notaTargetTipo === 'lead' ? LEADS_COLLECTION
-    : notaTargetTipo === 'ferias' ? FERIAS_COLLECTION
+  const collectionName = notaTargetTipo === 'ferias' ? FERIAS_COLLECTION
     : COLLECTION;
   try {
     await db.collection(collectionName).doc(notaTargetId).update({ observacao: texto });
-    if(notaTargetTipo === 'lead'){
-      const l = allLeads.find(x => x.id === notaTargetId);
-      if(l){ l.observacao = texto; renderLeadsTable(); }
-    } else if(notaTargetTipo === 'ferias'){
+    if(notaTargetTipo === 'ferias'){
       const r = allFerias.find(x => x.id === notaTargetId);
       if(r){ r.observacao = texto; renderFeriasTable(); }
     } else {
@@ -4106,170 +3948,6 @@ document.getElementById('btnCadastrarLider')?.addEventListener('click', async ()
 });
 
 /* =========================================================
-   FORMULÁRIO DE LEADS ("Quero receber mais informações")
-========================================================= */
-document.getElementById('lead_telefone')?.addEventListener('input', e => e.target.value = maskPhone(e.target.value));
-
-/* =========================================================
-   FORMULÁRIO DE LEADS EM ETAPAS (uma pergunta por vez)
-========================================================= */
-const LEAD_STEPS = [
-  ['leadNome'],
-  ['leadTelefone', 'leadIdade'],
-  ['leadCidade', 'leadDistrito'],
-  ['leadEnsinoMedio']
-];
-let stepAtualLead = 1;
-
-function coletarDadosLead(){
-  return {
-    nome: document.getElementById('lead_nome').value.trim(),
-    telefone: document.getElementById('lead_telefone').value.trim(),
-    idade: document.getElementById('lead_idade').value.trim(),
-    cidade: document.getElementById('lead_cidade').value.trim(),
-    distrito: document.getElementById('lead_distrito').value.trim(),
-    ensinoMedio: document.getElementById('lead_ensinoMedio').value
-  };
-}
-
-function validarDadosLead(vals){
-  return [
-    ['leadNome', vals.nome.length >= 3],
-    ['leadTelefone', vals.telefone.replace(/\D/g, '').length >= 10],
-    ['leadIdade', !!vals.idade && Number(vals.idade) > 0],
-    ['leadCidade', vals.cidade.length >= 2],
-    ['leadDistrito', vals.distrito.length >= 2],
-    ['leadEnsinoMedio', !!vals.ensinoMedio]
-  ];
-}
-
-function mostrarStepLead(n){
-  const steps = document.querySelectorAll('.leads-card .form-step');
-  const total = steps.length;
-  steps.forEach(s => s.classList.toggle('hidden', parseInt(s.dataset.step, 10) !== n));
-
-  const bar = document.getElementById('leadProgressBar');
-  if(bar) bar.style.width = (n / total * 100) + '%';
-
-  const btnVoltar = document.getElementById('btnLeadVoltar');
-  const btnAvancar = document.getElementById('btnLeadAvancar');
-  const btnEnviar = document.getElementById('btnEnviarLead');
-  const ultimo = (n === total);
-  if(btnVoltar) btnVoltar.style.visibility = (n === 1) ? 'hidden' : 'visible';
-  if(btnAvancar) btnAvancar.classList.toggle('hidden', ultimo);
-  if(btnEnviar) btnEnviar.classList.toggle('hidden', !ultimo);
-
-  const msgArea = document.getElementById('leadMsgArea');
-  if(msgArea) msgArea.innerHTML = '';
-}
-
-function validarStepLead(n){
-  const camposDoStep = LEAD_STEPS[n - 1];
-  const vals = coletarDadosLead();
-  const checks = validarDadosLead(vals).filter(([nome]) => camposDoStep.includes(nome));
-  let valido = true;
-  checks.forEach(([nome, ok]) => {
-    const el = document.querySelector(`.leads-card [data-field="${nome}"]`);
-    setFieldError(el, !ok);
-    if(!ok) valido = false;
-  });
-  return valido;
-}
-
-document.getElementById('btnLeadVoltar')?.addEventListener('click', () => {
-  if(stepAtualLead > 1){
-    stepAtualLead--;
-    mostrarStepLead(stepAtualLead);
-  }
-});
-
-function avancarStepLead(){
-  if(stepAtualLead < LEAD_STEPS.length){
-    if(validarStepLead(stepAtualLead)){
-      stepAtualLead++;
-      mostrarStepLead(stepAtualLead);
-    }
-  } else {
-    document.getElementById('btnEnviarLead')?.click();
-  }
-}
-
-document.getElementById('btnLeadAvancar')?.addEventListener('click', avancarStepLead);
-
-/* Enter no teclado equivale a clicar em "Avançar" */
-document.querySelector('.leads-card')?.addEventListener('keydown', e => {
-  if(e.key === 'Enter' && e.target.tagName !== 'TEXTAREA'){
-    e.preventDefault();
-    avancarStepLead();
-  }
-});
-
-if(document.querySelector('.leads-card .form-step')){
-  mostrarStepLead(1);
-}
-
-document.getElementById('btnEnviarLead')?.addEventListener('click', async () => {
-  const vals = {
-    nome: document.getElementById('lead_nome').value.trim(),
-    telefone: document.getElementById('lead_telefone').value.trim(),
-    cidade: document.getElementById('lead_cidade').value.trim(),
-    distrito: document.getElementById('lead_distrito').value.trim(),
-    idade: document.getElementById('lead_idade').value.trim(),
-    ensinoMedio: document.getElementById('lead_ensinoMedio').value
-  };
-
-  const checks = [
-    ['leadNome', vals.nome.length >= 3],
-    ['leadTelefone', vals.telefone.replace(/\D/g,'').length >= 10],
-    ['leadCidade', vals.cidade.length >= 2],
-    ['leadDistrito', vals.distrito.length >= 2],
-    ['leadIdade', vals.idade && Number(vals.idade) > 0],
-    ['leadEnsinoMedio', !!vals.ensinoMedio]
-  ];
-  let valid = true;
-  let primeiroInvalido = null;
-  checks.forEach(([name, ok]) => {
-    const el = document.querySelector(`.leads-card [data-field="${name}"]`);
-    setFieldError(el, !ok);
-    if(!ok){ valid = false; if(!primeiroInvalido) primeiroInvalido = name; }
-  });
-
-  const msgArea = document.getElementById('leadMsgArea');
-  msgArea.innerHTML = '';
-  if(!valid){
-    const stepComErro = LEAD_STEPS.findIndex(campos => campos.includes(primeiroInvalido)) + 1;
-    if(stepComErro > 0){
-      stepAtualLead = stepComErro;
-      mostrarStepLead(stepAtualLead);
-    }
-    msgArea.innerHTML = `<div class="msg-banner error">Corrija os campos destacados.</div>`;
-    return;
-  }
-
-  const btn = document.getElementById('btnEnviarLead');
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
-
-  try {
-    await db.collection(LEADS_COLLECTION).add({
-      ...vals,
-      idade: Number(vals.idade),
-      status: 'Pendente',
-      criadoEm: firebase.firestore.FieldValue.serverTimestamp()
-    });
-    ['lead_nome','lead_telefone','lead_cidade','lead_distrito','lead_idade'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('lead_ensinoMedio').value = '';
-    stepAtualLead = 1;
-    mostrarStepLead(1);
-    msgArea.innerHTML = `<div class="msg-banner ok">Recebemos seus dados! Em breve alguém da nossa equipe vai entrar em contato.</div>`;
-  } catch(err){
-    msgArea.innerHTML = `<div class="msg-banner error">Erro ao enviar: ${err.message}</div>`;
-  }
-  btn.disabled = false;
-  btn.textContent = 'Quero saber mais';
-});
-
-/* =========================================================
    BOTÃO "PREENCHA OS DADOS ABAIXO PARA SE INSCREVER"
 ========================================================= */
 document.getElementById('btnScrollToForm')?.addEventListener('click', () => {
@@ -4310,110 +3988,6 @@ document.getElementById('btnScrollToForm')?.addEventListener('click', () => {
   video.addEventListener('pause', () => playBtn.classList.remove('hidden'));
   video.addEventListener('ended', () => playBtn.classList.remove('hidden'));
 })();
-
-/* =========================================================
-   ABA LEADS (admin) — interessados a contatar
-========================================================= */
-function leadStatusClass(s){
-  if(s === 'Contatado') return 'status-Aprovado';
-  if(s === 'Aguardando resposta') return 'status-Em_análise';
-  return 'status-Inscrito'; // Pendente
-}
-
-function renderLeadsView(){
-  renderLeadsStats();
-  renderLeadsTable();
-}
-
-function renderLeadsStats(){
-  const total = allLeads.length;
-  const byStatus = {};
-  allLeads.forEach(l => byStatus[l.status] = (byStatus[l.status]||0)+1);
-  const statuses = ['Pendente','Contatado','Aguardando resposta'];
-  let html = `<div class="stat-card"><div class="num">${total}</div><div class="lbl">Total de leads</div></div>`;
-  statuses.forEach(s => {
-    html += `<div class="stat-card"><div class="num">${byStatus[s]||0}</div><div class="lbl">${s}</div></div>`;
-  });
-  document.getElementById('leadsStatsArea').innerHTML = html;
-}
-
-function renderLeadsTable(){
-  const searchEl = document.getElementById('leadsSearchInput');
-  const statusEl = document.getElementById('leadsFilterStatus');
-  if(!searchEl || !statusEl) return;
-  const search = searchEl.value.toLowerCase();
-  const fStatus = statusEl.value;
-
-  let filtered = allLeads.filter(l => {
-    if(fStatus && l.status !== fStatus) return false;
-    if(search){
-      const hay = `${l.nome} ${l.telefone} ${l.cidade}`.toLowerCase();
-      if(!hay.includes(search)) return false;
-    }
-    return true;
-  });
-
-  const tbody = document.getElementById('leadsTableBody');
-  if(filtered.length === 0){
-    tbody.innerHTML = `<tr><td colspan="9" style="color:var(--gray);text-align:center;padding:24px;">Nenhum lead encontrado.</td></tr>`;
-    return;
-  }
-
-  tbody.innerHTML = filtered.map(l => {
-    const preenchidoEm = l.criadoEm?.toDate ? l.criadoEm.toDate().toLocaleString('pt-BR', {dateStyle:'short', timeStyle:'short'}) : '—';
-    return `
-    <tr>
-      <td>${l.nome||''}</td>
-      <td>${l.telefone||''}</td>
-      <td>${l.cidade||''}</td>
-      <td>${l.distrito||''}</td>
-      <td>${l.idade ?? '—'}</td>
-      <td>${l.ensinoMedio||'—'}</td>
-      <td>${preenchidoEm}</td>
-      <td>
-        <select class="js-status-lead" data-id="${l.id}" style="background:var(--card);border:1px solid #2c2c30;color:var(--white);padding:5px 8px;border-radius:6px;font-size:12.5px;">
-          <option ${l.status==='Pendente'?'selected':''}>Pendente</option>
-          <option ${l.status==='Contatado'?'selected':''}>Contatado</option>
-          <option ${l.status==='Aguardando resposta'?'selected':''}>Aguardando resposta</option>
-        </select>
-        <button class="btn small secondary js-nota-lead" data-id="${l.id}" style="margin-top:6px;">📝 Observação${l.observacao ? ' ✓' : ''}</button>
-      </td>
-      <td><button class="btn small danger js-excluir-lead" data-id="${l.id}">Excluir</button></td>
-    </tr>
-  `;
-  }).join('');
-}
-
-document.getElementById('leadsTableBody')?.addEventListener('click', e => {
-  const notaBtn = e.target.closest('.js-nota-lead');
-  if(notaBtn){ abrirNota(notaBtn.dataset.id, 'lead'); return; }
-  const excluirBtn = e.target.closest('.js-excluir-lead');
-  if(excluirBtn) excluirLead(excluirBtn.dataset.id);
-});
-document.getElementById('leadsTableBody')?.addEventListener('change', e => {
-  const sel = e.target.closest('.js-status-lead');
-  if(sel) atualizarStatusLead(sel.dataset.id, sel.value);
-});
-
-document.getElementById('leadsSearchInput')?.addEventListener('input', renderLeadsTable);
-document.getElementById('leadsFilterStatus')?.addEventListener('change', renderLeadsTable);
-
-window.atualizarStatusLead = async function(id, novoStatus){
-  try {
-    await db.collection(LEADS_COLLECTION).doc(id).update({ status: novoStatus });
-  } catch(err){
-    alert('Erro ao atualizar status: ' + err.message);
-  }
-};
-
-window.excluirLead = async function(id){
-  if(!confirm('Tem certeza que deseja excluir este lead?')) return;
-  try {
-    await db.collection(LEADS_COLLECTION).doc(id).delete();
-  } catch(err){
-    alert('Erro ao excluir: ' + err.message);
-  }
-};
 
 /* =========================================================
    ABA FÉRIAS UNIVERSITÁRIA (admin) — inscritos que escolheram
@@ -5119,7 +4693,6 @@ document.getElementById('btnSalvarTitulos')?.addEventListener('click', async () 
     '.project-info-card',
     '.stat-card',
     '.galeria-card',
-    '.leads-card',
     '.projeto-opcao',
     '.footer-cta-buttons',
     '.footer-col',
