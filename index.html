@@ -3562,11 +3562,14 @@ async function gerarPdfDistritos(){
 document.getElementById('btnPdfDistritos')?.addEventListener('click', gerarPdfDistritos);
 
 function renderStats(){
-  const total = allLideres.length + allRegs.filter(r => r.status !== 'Resgatar').length;
+  // Total geral só conta quem está de fato confirmado (+ líderes) — os
+  // demais status (Inscrito, Em análise, Aprovado, Reprovado, Resgatar)
+  // ainda não são participantes garantidos, então não entram na contagem.
+  const total = allLideres.length + allRegs.filter(r => r.status === 'Confirmado').length;
   const byStatus = {};
   allRegs.forEach(r => byStatus[r.status] = (byStatus[r.status]||0)+1);
   const statuses = ['Inscrito','Em análise','Aprovado','Reprovado','Confirmado'];
-  let html = `<div class="stat-card"><div class="num">${total}</div><div class="lbl">Total (líderes + participantes)</div></div>`;
+  let html = `<div class="stat-card"><div class="num">${total}</div><div class="lbl">Total confirmados (líderes + participantes)</div></div>`;
   html += `<div class="stat-card"><div class="num">${allLideres.length}</div><div class="lbl">Líderes</div></div>`;
   statuses.forEach(s => {
     html += `<div class="stat-card"><div class="num">${byStatus[s]||0}</div><div class="lbl">${s}</div></div>`;
