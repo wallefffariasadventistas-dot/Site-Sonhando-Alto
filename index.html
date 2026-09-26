@@ -1488,6 +1488,7 @@
   .status-Aprovado{background:rgba(63,191,127,.16);color:var(--success);}
   .status-Reprovado{background:rgba(224,87,74,.18);color:#ffb3a8;}
   .status-Confirmado{background:rgba(242,183,5,.18);color:var(--gold-light);}
+  .status-Resgatar{background:rgba(28,77,110,.35);color:#9fd3f2;}
 
   .modal-bg{
     position:fixed;inset:0;background:rgba(4,9,15,.75);display:none;
@@ -2211,6 +2212,7 @@
 
     <div class="admin-tabs">
       <button class="tab-btn active" data-tab="tabInscritos">Inscritos</button>
+      <button class="tab-btn" data-tab="tabResgatar">A Resgatar</button>
       <button class="tab-btn" data-tab="tabCadastroParticipante">Cadastrar participante</button>
       <button class="tab-btn" data-tab="tabCadastroLider">Cadastrar líder</button>
       <button class="tab-btn" data-tab="tabFerias">Férias Universitária</button>
@@ -2252,6 +2254,34 @@
             </tr>
           </thead>
           <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ABA: A RESGATAR (jovens que desistiram, mas podem ser recontatados) -->
+    <div id="tabResgatar" class="tab-panel hidden">
+      <p style="color:var(--gray);font-size:13.5px;margin-bottom:16px;max-width:620px;">
+        Jovens marcados como <strong style="color:var(--sunset-3);">Resgatar</strong> — desistiram por algum motivo, mas os dados continuam aqui para você tentar reconquistar. Não aparecem na lista de Inscritos.
+      </p>
+      <div class="stats" id="resgatarStatsArea"></div>
+
+      <div class="toolbar">
+        <input type="text" id="resgatarSearchInput" placeholder="Buscar por nome, cidade ou WhatsApp...">
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Idade</th>
+              <th>Cidade</th>
+              <th>WhatsApp</th>
+              <th>Marcado em</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="resgatarTableBody"></tbody>
         </table>
       </div>
     </div>
@@ -2465,6 +2495,7 @@
         <option>Aprovado</option>
         <option>Reprovado</option>
         <option>Confirmado</option>
+        <option>Resgatar</option>
       </select>
       <button class="btn small" id="btnSaveStatus" style="flex:0 0 auto;">Salvar status</button>
       <button class="btn small" id="btnEnviarConfirmacao" style="flex:0 0 auto;background:#25D366;border-color:#25D366;color:#0b1826;">Enviar confirmação no WhatsApp</button>
@@ -3344,7 +3375,50 @@ function renderInscritosView(){
   populateCidadeFilter();
   renderTable();
   renderDistritosView();
+  renderResgatarView();
 }
+
+/* =========================================================
+   ABA A RESGATAR — participantes que desistiram (status Resgatar)
+========================================================= */
+function renderResgatarView(){
+  const tbody = document.getElementById('resgatarTableBody');
+  const statsEl = document.getElementById('resgatarStatsArea');
+  if(!tbody || !statsEl) return;
+
+  const search = document.getElementById('resgatarSearchInput')?.value.toLowerCase() || '';
+  let filtered = allRegs.filter(r => r.status === 'Resgatar');
+
+  statsEl.innerHTML = `<div class="stat-card"><div class="num">${filtered.length}</div><div class="lbl">A resgatar</div></div>`;
+
+  if(search){
+    filtered = filtered.filter(r => `${r.nome} ${r.cidade} ${r.whatsapp}`.toLowerCase().includes(search));
+  }
+
+  if(filtered.length === 0){
+    tbody.innerHTML = `<tr><td colspan="6" style="color:var(--gray);text-align:center;padding:24px;">Ninguém a resgatar no momento.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(r => {
+    const data = r.criadoEm?.toDate ? r.criadoEm.toDate().toLocaleString('pt-BR', {dateStyle:'short', timeStyle:'short'}) : '—';
+    return `<tr>
+      <td>${r.nome||''}</td>
+      <td>${r.idade ?? '—'}</td>
+      <td>${r.cidade||''}</td>
+      <td>${r.whatsapp||''}</td>
+      <td>${data}</td>
+      <td><button class="btn small secondary js-ver-inscricao" data-id="${r.id}" data-tipo="participante">Ver</button></td>
+    </tr>`;
+  }).join('');
+}
+
+document.getElementById('resgatarTableBody')?.addEventListener('click', e => {
+  const btn = e.target.closest('.js-ver-inscricao');
+  if(btn) openModal(btn.dataset.id, btn.dataset.tipo);
+});
+
+document.getElementById('resgatarSearchInput')?.addEventListener('input', renderResgatarView);
 
 /* =========================================================
    ABA DISTRITOS — cobertura de distritos pastorais
@@ -3488,8 +3562,7 @@ async function gerarPdfDistritos(){
 document.getElementById('btnPdfDistritos')?.addEventListener('click', gerarPdfDistritos);
 
 function renderStats(){
-  const unified = getUnifiedList();
-  const total = unified.length;
+  const total = allLideres.length + allRegs.filter(r => r.status !== 'Resgatar').length;
   const byStatus = {};
   allRegs.forEach(r => byStatus[r.status] = (byStatus[r.status]||0)+1);
   const statuses = ['Inscrito','Em análise','Aprovado','Reprovado','Confirmado'];
@@ -3504,7 +3577,7 @@ function renderStats(){
 function populateCidadeFilter(){
   const sel = document.getElementById('filterCidade');
   const current = sel.value;
-  const unified = getUnifiedList();
+  const unified = getUnifiedList().filter(r => r._tipo === 'lider' || r.status !== 'Resgatar');
   const cidades = [...new Set(unified.map(r => r.cidade).filter(Boolean))].sort();
   sel.innerHTML = '<option value="">Todas as cidades</option>' + cidades.map(c => `<option value="${c}">${c}</option>`).join('');
   sel.value = current;
@@ -3518,6 +3591,7 @@ function renderTable(){
   const fCidade = document.getElementById('filterCidade').value;
 
   let filtered = getUnifiedList().filter(r => {
+    if(r._tipo !== 'lider' && r.status === 'Resgatar') return false; // sai da lista de Inscritos, aparece só na aba "A Resgatar"
     if(fStatus && r._tipo !== 'lider' && r.status !== fStatus) return false;
     if(fStatus && r._tipo === 'lider') return false; // líder não tem status, não aparece em filtro de status específico
     if(fCidade && r.cidade !== fCidade) return false;
@@ -3804,7 +3878,8 @@ document.getElementById('btnSaveEdit').addEventListener('click', async () => {
 
 /* ---------- EXPORTAÇÃO EXCEL (líderes + participantes) ---------- */
 document.getElementById('btnExportExcel')?.addEventListener('click', () => {
-  const unified = getUnifiedList();
+  // Só líderes + participantes com status "Confirmado" — é a lista final de quem vai de fato.
+  const unified = getUnifiedList().filter(r => r._tipo === 'lider' || r.status === 'Confirmado');
   unified.sort((a, b) => (a._tipo === 'lider' ? -1 : 0) - (b._tipo === 'lider' ? -1 : 0));
   const data = unified.map(r => ({
     Tipo: r._tipo === 'lider' ? 'Líder' : 'Participante',
@@ -3816,8 +3891,8 @@ document.getElementById('btnExportExcel')?.addEventListener('click', () => {
   }));
   const ws = XLSX.utils.json_to_sheet(data);
   const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Inscritos');
-  XLSX.writeFile(wb, `sonhando-alto-inscritos-${new Date().toISOString().slice(0,10)}.xlsx`);
+  XLSX.utils.book_append_sheet(wb, ws, 'Confirmados');
+  XLSX.writeFile(wb, `sonhando-alto-confirmados-${new Date().toISOString().slice(0,10)}.xlsx`);
 });
 
 /* =========================================================
