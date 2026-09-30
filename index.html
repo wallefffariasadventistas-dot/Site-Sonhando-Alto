@@ -157,7 +157,9 @@
     color:var(--white);
     padding:13px 14px;
     border-radius:var(--radius);
-    font-size:15px;
+    /* 16px (não 15px) evita que o Safari/iOS dê zoom automático ao focar o campo —
+       esse zoom é o que fazia a tela "descentralizar" ao preencher e avançar */
+    font-size:16px;
     font-family:'Inter',sans-serif;
     transition:border .15s, background .15s;
     backdrop-filter:blur(4px);
