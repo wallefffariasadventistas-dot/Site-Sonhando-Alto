@@ -198,8 +198,10 @@
     transition:opacity .2s ease;
   }
   @keyframes formStepIn{
-    from{opacity:0; transform:translateX(14px);}
-    to{opacity:1; transform:translateX(0);}
+    /* só desloca na vertical — um translateX aqui fazia a etapa nascer
+       fora do eixo horizontal do card, dando a sensação de "descentralizar" */
+    from{opacity:0; transform:translateY(8px);}
+    to{opacity:1; transform:translateY(0);}
   }
   .form-step-nav{
     display:flex;gap:12px;margin-top:14px;
@@ -3062,8 +3064,10 @@ function mostrarStepInscricao(n){
   document.getElementById('formMsgArea').innerHTML = '';
   const form = document.getElementById('inscricaoForm');
   /* só rola a tela até o formulário quando o usuário já está interagindo
-     (avançando/voltando etapas) — não na primeira vez que a página carrega */
-  if(form && jaMostrouStepInscricaoAntes) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+     (avançando/voltando etapas) — não na primeira vez que a página carrega.
+     block:'center' mantém a pergunta sempre centralizada no meio da tela,
+     em vez de "start" (que a jogava pro topo e dava a sensação de pulo). */
+  if(form && jaMostrouStepInscricaoAntes) form.scrollIntoView({ behavior: 'smooth', block: 'center' });
   jaMostrouStepInscricaoAntes = true;
 }
 
