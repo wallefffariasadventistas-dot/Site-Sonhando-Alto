@@ -1113,7 +1113,8 @@
     flex:0 0 calc((100% - 28px) / 3);
   }
   @media (max-width:560px){
-    .galeria-grid .galeria-card{flex-basis:min(72vw, 220px);}
+    /* exatamente 2 cards por vez no celular — fotos maiores e nome sem cortar */
+    .galeria-grid .galeria-card{flex-basis:calc((100% - 14px) / 2);}
   }
   .galeria-nav{
     position:absolute;
@@ -4300,17 +4301,23 @@ function idGridDoCarrossel(prefix){
 }
 
 /* Calcula e aplica a largura exata dos cards (em pixels) para caber sempre
-   3 fotos completas por tela — feito via JS para garantir o mesmo resultado
-   em qualquer navegador, sem depender de calc() dentro de flex-basis. */
+   um número fixo de fotos completas por tela — feito via JS para garantir o
+   mesmo resultado em qualquer navegador, sem depender de calc() dentro de
+   flex-basis. No celular são 2 por tela (em vez de 3), pra foto e nome
+   ficarem maiores e legíveis; no desktop/tablet continuam 3. */
 const GAP_CARROSSEL = 14;
-const CARDS_POR_TELA = 3;
+
+function cardsPorTela(){
+  return window.innerWidth <= 560 ? 2 : 3;
+}
 
 function ajustarLarguraCards(prefix){
   const grid = document.getElementById(idGridDoCarrossel(prefix));
   if(!grid) return;
   const largura = grid.clientWidth;
   if(!largura) return;
-  const larguraCard = Math.floor((largura - GAP_CARROSSEL * (CARDS_POR_TELA - 1)) / CARDS_POR_TELA);
+  const n = cardsPorTela();
+  const larguraCard = Math.floor((largura - GAP_CARROSSEL * (n - 1)) / n);
   grid.querySelectorAll(':scope > .galeria-card').forEach(card => {
     card.style.flex = `0 0 ${larguraCard}px`;
     card.style.width = larguraCard + 'px';
