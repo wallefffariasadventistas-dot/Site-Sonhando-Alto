@@ -2323,6 +2323,11 @@
       </p>
       <div class="stats" id="feriasStatsArea"></div>
 
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+        <button class="btn small secondary" id="btnExportExcelFerias">Exportar Excel</button>
+        <button class="btn small secondary" id="btnExportPdfFerias">📄 Baixar PDF</button>
+      </div>
+
       <div class="toolbar">
         <input type="text" id="feriasSearchInput" placeholder="Buscar por nome, e-mail, WhatsApp ou cidade...">
         <select id="feriasFilterStatus">
@@ -3661,12 +3666,14 @@ let currentRegId = null;
 let currentTipo = null;
 
 function getCurrentRecord(){
-  const arr = currentTipo === 'lider' ? allLideres : allRegs;
+  const arr = currentTipo === 'lider' ? allLideres : (currentTipo === 'ferias' ? allFerias : allRegs);
   return arr.find(x => x.id === currentRegId);
 }
 
 function getCurrentCollectionName(){
-  return currentTipo === 'lider' ? LIDERES_COLLECTION : COLLECTION;
+  if(currentTipo === 'lider') return LIDERES_COLLECTION;
+  if(currentTipo === 'ferias') return FERIAS_COLLECTION;
+  return COLLECTION;
 }
 
 function renderModalView(r){
@@ -3719,7 +3726,8 @@ window.openModal = function(id, tipo){
   const r = getCurrentRecord();
   if(!r) return;
 
-  document.getElementById('modalTitle').textContent = currentTipo === 'lider' ? 'Detalhes do líder' : 'Detalhes da inscrição';
+  document.getElementById('modalTitle').textContent = currentTipo === 'lider' ? 'Detalhes do líder'
+    : (currentTipo === 'ferias' ? 'Detalhes da inscrição (Férias Universitária)' : 'Detalhes da inscrição');
   renderModalView(r);
 
   document.getElementById('modalActionsView').classList.remove('hidden');
@@ -3753,7 +3761,7 @@ document.getElementById('modalBg').addEventListener('click', e => { if(e.target.
 document.getElementById('btnSaveStatus').addEventListener('click', async () => {
   if(!currentRegId || currentTipo === 'lider') return;
   const novoStatus = document.getElementById('modalStatusSelect').value;
-  await db.collection(COLLECTION).doc(currentRegId).update({ status: novoStatus });
+  await db.collection(getCurrentCollectionName()).doc(currentRegId).update({ status: novoStatus });
   const r = getCurrentRecord();
   if(r) r.status = novoStatus;
   document.getElementById('btnEnviarConfirmacao').style.display = (novoStatus === 'Confirmado') ? '' : 'none';
@@ -3781,7 +3789,7 @@ document.getElementById('btnEnviarConfirmacao').addEventListener('click', () => 
 
 document.getElementById('btnObservacao').addEventListener('click', () => {
   if(!currentRegId || currentTipo === 'lider') return;
-  window.abrirNota(currentRegId, 'inscrito');
+  window.abrirNota(currentRegId, currentTipo === 'ferias' ? 'ferias' : 'inscrito');
 });
 
 /* ---------- OBSERVAÇÃO SOBRE O CONTATO (inscritos) ---------- */
@@ -3820,7 +3828,13 @@ document.getElementById('btnSalvarNota').addEventListener('click', async () => {
     await db.collection(collectionName).doc(notaTargetId).update({ observacao: texto });
     if(notaTargetTipo === 'ferias'){
       const r = allFerias.find(x => x.id === notaTargetId);
-      if(r){ r.observacao = texto; renderFeriasTable(); }
+      if(r){
+        r.observacao = texto;
+        renderFeriasTable();
+        if(currentTipo === 'ferias' && currentRegId === notaTargetId){
+          document.getElementById('btnObservacao').textContent = texto ? '📝 Observação ✓' : '📝 Observação';
+        }
+      }
     } else {
       const r = allRegs.find(x => x.id === notaTargetId);
       if(r){
@@ -3904,6 +3918,64 @@ document.getElementById('btnExportExcel')?.addEventListener('click', () => {
   XLSX.utils.book_append_sheet(wb, ws, 'Confirmados');
   XLSX.writeFile(wb, `sonhando-alto-confirmados-${new Date().toISOString().slice(0,10)}.xlsx`);
 });
+
+/* ---------- EXPORTAÇÃO EXCEL (Férias Universitária) ---------- */
+document.getElementById('btnExportExcelFerias')?.addEventListener('click', () => {
+  // Exporta todos os inscritos da Férias Universitária, com todos os status
+  // (diferente do Excel do Sonhando Alto, que só traz os confirmados).
+  const data = allFerias.map(r => ({
+    Nome: r.nome, 'Data de nascimento': r.nascimento, Idade: r.idade, CPF: r.cpf, RG: r.rg,
+    'Estado civil': r.estadoCivil, Escolaridade: r.escolaridade, Email: r.email,
+    WhatsApp: r.whatsapp, CEP: r.cep, Cidade: r.cidade, Endereço: r.endereco, Bairro: r.bairro,
+    'Nome do pai': r.nomePai, 'Nome da mãe': r.nomeMae, 'Tamanho camisa': r.camisa,
+    Status: r.status, Observação: r.observacao || ''
+  }));
+  const ws = XLSX.utils.json_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Férias Universitária');
+  XLSX.writeFile(wb, `sonhando-alto-ferias-universitaria-${new Date().toISOString().slice(0,10)}.xlsx`);
+});
+
+/* ---------- EXPORTAÇÃO PDF (Férias Universitária) ----------
+   Nome abreviado (mesma lógica do PDF de Distritos), já que é um
+   arquivo que pode circular fora do painel admin. */
+async function gerarPdfFerias(){
+  const btn = document.getElementById('btnExportPdfFerias');
+  if(btn){ btn.disabled = true; btn.textContent = 'Gerando PDF...'; }
+  try {
+    await carregarScriptAdmin('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+    await carregarScriptAdmin('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js');
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text('Sonhando Alto — Férias Universitária', 14, 18);
+    doc.setFontSize(10);
+    doc.setTextColor(120);
+    doc.text(`Gerado em ${new Date().toLocaleDateString('pt-BR')} · ${allFerias.length} inscrito(s)`, 14, 24);
+    doc.setTextColor(0);
+
+    const linhas = allFerias.map(r => [
+      abreviarNome(r.nome), r.whatsapp || '—', r.cidade || '—', r.escolaridade || '—', r.status || 'Inscrito'
+    ]);
+
+    doc.autoTable({
+      startY: 30,
+      head: [['Nome', 'WhatsApp', 'Cidade', 'Escolaridade', 'Status']],
+      body: linhas,
+      theme: 'grid',
+      styles: { fontSize: 9 },
+      headStyles: { fillColor: [242, 183, 5], textColor: [30, 20, 0] }
+    });
+
+    doc.save(`sonhando-alto-ferias-universitaria-${new Date().toISOString().slice(0, 10)}.pdf`);
+  } catch(err){
+    alert('Erro ao gerar PDF: ' + err.message);
+  }
+  if(btn){ btn.disabled = false; btn.textContent = '📄 Baixar PDF'; }
+}
+document.getElementById('btnExportPdfFerias')?.addEventListener('click', gerarPdfFerias);
 
 /* =========================================================
    ABA: CADASTRAR PARTICIPANTE (admin cadastra manualmente)
@@ -4134,12 +4206,17 @@ function renderFeriasTable(){
         </select>
         <button class="btn small secondary js-nota-ferias" data-id="${r.id}" style="margin-top:6px;">📝 Observação${r.observacao ? ' ✓' : ''}</button>
       </td>
-      <td><button class="btn small danger js-excluir-ferias" data-id="${r.id}">Excluir</button></td>
+      <td>
+        <button class="btn small secondary js-ver-ferias" data-id="${r.id}" style="margin-bottom:6px;">Ver / Editar</button>
+        <button class="btn small danger js-excluir-ferias" data-id="${r.id}">Excluir</button>
+      </td>
     </tr>
   `).join('');
 }
 
 document.getElementById('feriasTableBody')?.addEventListener('click', e => {
+  const verBtn = e.target.closest('.js-ver-ferias');
+  if(verBtn){ openModal(verBtn.dataset.id, 'ferias'); return; }
   const notaBtn = e.target.closest('.js-nota-ferias');
   if(notaBtn){ abrirNota(notaBtn.dataset.id, 'ferias'); return; }
   const excluirBtn = e.target.closest('.js-excluir-ferias');
