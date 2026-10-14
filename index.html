@@ -2374,7 +2374,6 @@
               <th>Distrito</th>
               <th>Pastor</th>
               <th>Confirmados</th>
-              <th>Inscritos (todos os status)</th>
             </tr>
           </thead>
           <tbody id="distritosOkTableBody"></tbody>
@@ -2388,7 +2387,6 @@
             <tr>
               <th>Distrito</th>
               <th>Pastor</th>
-              <th>Inscritos (todos os status)</th>
             </tr>
           </thead>
           <tbody id="distritosPendentesTableBody"></tbody>
@@ -3445,11 +3443,11 @@ function renderDistritosView(){
   const comRepresentante = [];
   const pendentes = [];
 
+  // Conta só quem está Confirmado — demais status (Inscrito, Em análise,
+  // Aprovado, Reprovado, Resgatar) não contam como representante do distrito.
   DISTRITOS_PASTORAIS.forEach(distrito => {
-    const doDistrito = allRegs.filter(r => r.distritoPastoral === distrito);
-    const confirmados = doDistrito.filter(r => r.status === 'Confirmado').length;
-    const totalInscritos = doDistrito.length;
-    const linha = { distrito, pastor: PASTORES_POR_DISTRITO[distrito] || '—', confirmados, totalInscritos };
+    const confirmados = allRegs.filter(r => r.distritoPastoral === distrito && r.status === 'Confirmado').length;
+    const linha = { distrito, pastor: PASTORES_POR_DISTRITO[distrito] || '—', confirmados };
     (confirmados > 0 ? comRepresentante : pendentes).push(linha);
   });
 
@@ -3459,20 +3457,18 @@ function renderDistritosView(){
         <td>${l.distrito}</td>
         <td>${l.pastor}</td>
         <td>${l.confirmados}</td>
-        <td>${l.totalInscritos}</td>
       </tr>
     `).join('')
-    : `<tr><td colspan="4" style="color:var(--gray);text-align:center;padding:16px;">Nenhum distrito com representante confirmado ainda.</td></tr>`;
+    : `<tr><td colspan="3" style="color:var(--gray);text-align:center;padding:16px;">Nenhum distrito com representante confirmado ainda.</td></tr>`;
 
   tbodyPendentes.innerHTML = pendentes.length
     ? pendentes.map(l => `
       <tr>
         <td>${l.distrito}</td>
         <td>${l.pastor}</td>
-        <td>${l.totalInscritos}</td>
       </tr>
     `).join('')
-    : `<tr><td colspan="3" style="color:var(--gray);text-align:center;padding:16px;">Todos os distritos já têm representante 🎉</td></tr>`;
+    : `<tr><td colspan="2" style="color:var(--gray);text-align:center;padding:16px;">Todos os distritos já têm representante 🎉</td></tr>`;
 
   resumoEl.innerHTML = `
     <div class="stat-card"><div class="num">${DISTRITOS_PASTORAIS.length}</div><div class="lbl">Total de distritos</div></div>
