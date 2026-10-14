@@ -3526,17 +3526,35 @@ async function gerarPdfDistritos(){
     );
     doc.setTextColor(0);
 
+    // Legenda das cores usadas nas linhas da tabela abaixo
+    doc.setFontSize(9);
+    doc.setFillColor(63, 191, 127);
+    doc.rect(14, 28, 4, 4, 'F');
+    doc.setTextColor(60);
+    doc.text('Com representante confirmado', 20, 31.5);
+    doc.setFillColor(224, 87, 74);
+    doc.rect(100, 28, 4, 4, 'F');
+    doc.text('Sem representante ainda', 106, 31.5);
+    doc.setTextColor(0);
+
     doc.autoTable({
-      startY: 30,
+      startY: 36,
       head: [['Distrito', 'Jovem', 'Pastor']],
       body: linhas,
       theme: 'grid',
       styles: { fontSize: 9 },
       headStyles: { fillColor: [242, 183, 5], textColor: [30, 20, 0] },
       didParseCell: (data) => {
-        if(data.section === 'body' && data.cell.raw === 'Nenhum jovem confirmado ainda'){
-          data.cell.styles.textColor = [150, 150, 150];
-          data.cell.styles.fontStyle = 'italic';
+        if(data.section !== 'body') return;
+        const semRepresentante = data.row.raw[1] === 'Nenhum jovem confirmado ainda';
+        if(semRepresentante){
+          data.cell.styles.fillColor = [252, 224, 221];
+          if(data.column.index === 1){
+            data.cell.styles.textColor = [153, 27, 27];
+            data.cell.styles.fontStyle = 'italic';
+          }
+        } else {
+          data.cell.styles.fillColor = [217, 242, 229];
         }
       }
     });
