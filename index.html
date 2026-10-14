@@ -3500,17 +3500,23 @@ async function gerarPdfDistritos(){
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    const comRepresentante = [];
-    const pendentes = [];
+    /* Uma linha por jovem confirmado em cada distrito — nome completo (este
+       PDF é só para a equipe saber quem é de cada distrito e quem é o
+       pastor, por isso aqui não abrevia como no PDF de Férias). Distritos
+       sem nenhum jovem confirmado ainda entram do mesmo jeito, com uma
+       única linha sem nome de jovem, só para o pastor aparecer também. */
+    const linhas = [];
+    let distritosComRepresentante = 0;
     DISTRITOS_PASTORAIS.forEach(distrito => {
-      const confirmados = allRegs.filter(r => r.distritoPastoral === distrito && r.status === 'Confirmado');
+      const pastor = PASTORES_POR_DISTRITO[distrito] || '—';
+      const confirmados = allRegs
+        .filter(r => r.distritoPastoral === distrito && r.status === 'Confirmado')
+        .sort((a, b) => (a.nome || '').localeCompare(b.nome || '', 'pt-BR'));
       if(confirmados.length > 0){
-        comRepresentante.push({
-          distrito,
-          jovens: confirmados.map(r => ({ nome: abreviarNome(r.nome), whatsapp: r.whatsapp || '—' }))
-        });
+        distritosComRepresentante++;
+        confirmados.forEach(r => linhas.push([distrito, r.nome || '—', pastor]));
       } else {
-        pendentes.push(distrito);
+        linhas.push([distrito, 'Nenhum jovem confirmado ainda', pastor]);
       }
     });
 
@@ -3518,52 +3524,26 @@ async function gerarPdfDistritos(){
     doc.text('Sonhando Alto — Distritos Pastorais', 14, 18);
     doc.setFontSize(10);
     doc.setTextColor(120);
-    doc.text(`Gerado em ${new Date().toLocaleDateString('pt-BR')}`, 14, 24);
+    doc.text(
+      `Gerado em ${new Date().toLocaleDateString('pt-BR')} · ${distritosComRepresentante} de ${DISTRITOS_PASTORAIS.length} distritos com representante`,
+      14, 24
+    );
     doc.setTextColor(0);
 
-    let cursorY = 34;
-    doc.setFontSize(12);
-    doc.text(`Distritos com representante (${comRepresentante.length})`, 14, cursorY);
-    cursorY += 4;
-
-    const linhasOk = [];
-    comRepresentante.forEach(({ distrito, jovens }) => {
-      jovens.forEach(j => linhasOk.push([distrito, j.nome, j.whatsapp]));
+    doc.autoTable({
+      startY: 30,
+      head: [['Distrito', 'Jovem', 'Pastor']],
+      body: linhas,
+      theme: 'grid',
+      styles: { fontSize: 9 },
+      headStyles: { fillColor: [242, 183, 5], textColor: [30, 20, 0] },
+      didParseCell: (data) => {
+        if(data.section === 'body' && data.cell.raw === 'Nenhum jovem confirmado ainda'){
+          data.cell.styles.textColor = [150, 150, 150];
+          data.cell.styles.fontStyle = 'italic';
+        }
+      }
     });
-
-    if(linhasOk.length){
-      doc.autoTable({
-        startY: cursorY + 2,
-        head: [['Distrito', 'Jovem', 'WhatsApp']],
-        body: linhasOk,
-        theme: 'grid',
-        styles: { fontSize: 9 },
-        headStyles: { fillColor: [242, 183, 5], textColor: [30, 20, 0] }
-      });
-      cursorY = doc.lastAutoTable.finalY + 14;
-    } else {
-      doc.setFontSize(10);
-      doc.text('Nenhum distrito com representante confirmado ainda.', 14, cursorY + 6);
-      cursorY += 18;
-    }
-
-    doc.setFontSize(12);
-    doc.text(`Distritos pendentes (${pendentes.length})`, 14, cursorY);
-    cursorY += 2;
-
-    if(pendentes.length){
-      doc.autoTable({
-        startY: cursorY + 2,
-        head: [['Distritos sem representante confirmado']],
-        body: pendentes.map(d => [d]),
-        theme: 'grid',
-        styles: { fontSize: 9 },
-        headStyles: { fillColor: [224, 87, 74], textColor: [255, 255, 255] }
-      });
-    } else {
-      doc.setFontSize(10);
-      doc.text('Todos os distritos já têm representante.', 14, cursorY + 6);
-    }
 
     doc.save(`distritos-sonhando-alto-${new Date().toISOString().slice(0, 10)}.pdf`);
   } catch(err){
