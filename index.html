@@ -2036,6 +2036,7 @@
           <select id="f_distritoPastoral">
             <option value="">Selecione seu distrito</option>
           </select>
+          <input type="text" id="f_distritoPastoralOutro" class="hidden" placeholder="Digite o nome do seu distrito" style="margin-top:10px;" autocomplete="off">
           <div class="err-msg">Selecione seu distrito pastoral.</div>
         </div>
       </div>
@@ -2783,6 +2784,18 @@ function showFieldError(scopeId, name, show){
   setFieldError(el, show);
 }
 
+/* Quando a pessoa escolhe "Outro" no distrito pastoral (não mora em
+   nenhum distrito do Piauí), o nome que ela digita no campo de texto
+   vira o valor real de distritoPastoral — assim o resto do sistema
+   (tabelas, Excel, PDF) continua usando um único campo normalmente. */
+function lerDistritoPastoral(prefix){
+  const sel = document.getElementById(`${prefix}_distritoPastoral`).value;
+  if(sel === 'Outro'){
+    return document.getElementById(`${prefix}_distritoPastoralOutro`)?.value.trim() || '';
+  }
+  return sel;
+}
+
 function coletarDados(prefix){
   return {
     nome: document.getElementById(`${prefix}_nome`).value.trim(),
@@ -2795,7 +2808,7 @@ function coletarDados(prefix){
     whatsapp: document.getElementById(`${prefix}_whatsapp`).value.trim(),
     cep: document.getElementById(`${prefix}_cep`).value.trim(),
     cidade: document.getElementById(`${prefix}_cidade`).value.trim(),
-    distritoPastoral: document.getElementById(`${prefix}_distritoPastoral`).value,
+    distritoPastoral: lerDistritoPastoral(prefix),
     endereco: document.getElementById(`${prefix}_endereco`).value.trim(),
     bairro: document.getElementById(`${prefix}_bairro`).value.trim(),
     nomePai: document.getElementById(`${prefix}_nomePai`).value.trim(),
@@ -2829,6 +2842,8 @@ function limparCampos(prefix){
     const el = document.getElementById(`${prefix}_${f}`);
     if(el) el.value='';
   });
+  const outroInput = document.getElementById(`${prefix}_distritoPastoralOutro`);
+  if(outroInput){ outroInput.value=''; outroInput.classList.add('hidden'); }
 }
 
 /* Gera o HTML dos campos do formulário (reaproveitado nas abas de cadastro do admin) */
@@ -2924,7 +2939,9 @@ function buildCamposHTML(prefix){
       <select id="${prefix}_distritoPastoral">
         <option value="">Selecione o distrito</option>
         ${DISTRITOS_PASTORAIS.map(d => `<option>${d}</option>`).join('')}
+        <option value="Outro">Outro (fora do Piauí)</option>
       </select>
+      <input type="text" id="${prefix}_distritoPastoralOutro" class="hidden" placeholder="Digite o nome do distrito" style="margin-top:10px;">
       <div class="err-msg">Selecione o distrito pastoral.</div>
     </div>
 
@@ -2978,6 +2995,21 @@ function attachMasks(prefix){
     e.target.value = maskCEP(e.target.value);
     buscarEnderecoPorCEP(prefix);
   });
+  attachDistritoOutro(prefix);
+}
+
+/* Mostra o campo de texto livre quando a pessoa escolhe "Outro" no
+   distrito pastoral (não mora em nenhum distrito do Piauí). */
+function attachDistritoOutro(prefix){
+  const select = document.getElementById(`${prefix}_distritoPastoral`);
+  const outroInput = document.getElementById(`${prefix}_distritoPastoralOutro`);
+  if(!select || !outroInput) return;
+  select.addEventListener('change', () => {
+    const ehOutro = select.value === 'Outro';
+    outroInput.classList.toggle('hidden', !ehOutro);
+    if(ehOutro) outroInput.focus();
+    else outroInput.value = '';
+  });
 }
 
 const HOJE_ISO = new Date().toISOString().slice(0,10);
@@ -3009,8 +3041,9 @@ const DISTRITOS_PASTORAIS = [
 // Fonte única para os <select> de distrito pastoral (evita listas duplicadas e divergentes)
 document.getElementById('f_distritoPastoral')?.insertAdjacentHTML(
   'beforeend',
-  DISTRITOS_PASTORAIS.map(d => `<option>${d}</option>`).join('')
+  DISTRITOS_PASTORAIS.map(d => `<option>${d}</option>`).join('') + '<option value="Outro">Outro (fora do Piauí)</option>'
 );
+attachDistritoOutro('f');
 
 const PASTORES_POR_DISTRITO = {
   'Aeroporto – PI': 'Emerson Paulo da Silva',
@@ -3737,16 +3770,26 @@ function renderModalEdit(r){
     }
     if(type === 'select-distritoPastoral'){
       const opts = DISTRITOS_PASTORAIS;
+      const valorAtual = r[field] || '';
+      // valor salvo que não é nenhum dos distritos do Piauí = foi digitado em "Outro"
+      const ehOutro = !!valorAtual && !opts.includes(valorAtual);
       return `<div class="detail-row"><span>${label}</span>
-        <select id="edit_${field}" style="background:var(--card);border:1px solid #2c2c30;color:var(--white);padding:6px 8px;border-radius:6px;">
-          <option value="" ${!r[field]?'selected':''}>Selecione</option>
-          ${opts.map(o => `<option ${r[field]===o?'selected':''}>${o}</option>`).join('')}
-        </select></div>`;
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;">
+          <select id="edit_${field}" style="background:var(--card);border:1px solid #2c2c30;color:var(--white);padding:6px 8px;border-radius:6px;">
+            <option value="" ${!valorAtual?'selected':''}>Selecione</option>
+            ${opts.map(o => `<option ${valorAtual===o?'selected':''}>${o}</option>`).join('')}
+            <option value="Outro" ${ehOutro?'selected':''}>Outro (fora do Piauí)</option>
+          </select>
+          <input type="text" id="edit_${field}Outro" placeholder="Digite o nome do distrito" value="${ehOutro ? valorAtual.replace(/"/g,'&quot;') : ''}" class="${ehOutro ? '' : 'hidden'}" style="background:var(--card);border:1px solid #2c2c30;color:var(--white);padding:6px 8px;border-radius:6px;max-width:220px;">
+        </div></div>`;
     }
     return `<div class="detail-row"><span>${label}</span>
       <input type="${type}" id="edit_${field}" value="${(r[field]??'').toString().replace(/"/g,'&quot;')}" style="background:var(--card);border:1px solid #2c2c30;color:var(--white);padding:6px 8px;border-radius:6px;max-width:60%;">
     </div>`;
   }).join('');
+  document.getElementById('edit_distritoPastoral')?.addEventListener('change', e => {
+    document.getElementById('edit_distritoPastoralOutro')?.classList.toggle('hidden', e.target.value !== 'Outro');
+  });
 }
 
 window.openModal = function(id, tipo){
@@ -3913,6 +3956,9 @@ document.getElementById('btnSaveEdit').addEventListener('click', async () => {
     const el = document.getElementById(`edit_${field}`);
     if(el) updates[field] = el.value.trim ? el.value.trim() : el.value;
   });
+  if(updates.distritoPastoral === 'Outro'){
+    updates.distritoPastoral = document.getElementById('edit_distritoPastoralOutro')?.value.trim() || '';
+  }
   if(updates.nascimento){
     updates.idade = calcIdade(updates.nascimento);
   }
