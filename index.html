@@ -2223,6 +2223,7 @@
       <button class="tab-btn" data-tab="tabResgatar">A Resgatar</button>
       <button class="tab-btn" data-tab="tabCadastroParticipante">Cadastrar participante</button>
       <button class="tab-btn" data-tab="tabCadastroLider">Cadastrar líder</button>
+      <button class="tab-btn" data-tab="tabCadastroLiderFerias">Cadastrar líder (Férias)</button>
       <button class="tab-btn" data-tab="tabFerias">Férias Universitária</button>
       <button class="tab-btn" data-tab="tabDistritos">Distritos</button>
       <button class="tab-btn" data-tab="tabGaleria">Galeria de Fotos</button>
@@ -2317,6 +2318,21 @@
       <div id="msgCadastroLider" role="alert" aria-live="assertive"></div>
       <div id="camposCadastroLider" style="max-width:520px;"></div>
       <button class="btn" id="btnCadastrarLider" style="margin-top:6px;max-width:320px;">Cadastrar líder</button>
+    </div>
+
+    <!-- ABA: CADASTRAR LÍDER - FÉRIAS UNIVERSITÁRIA (máximo 2) -->
+    <div id="tabCadastroLiderFerias" class="tab-panel hidden">
+      <p style="color:var(--gray);font-size:13.5px;margin-bottom:16px;max-width:520px;">
+        Cada equipe da <strong style="color:var(--gold-light);">Férias Universitária</strong> pode ter no máximo <strong style="color:var(--gold-light);">2 líderes</strong> cadastrados.
+      </p>
+      <div class="stat-card" id="liderFeriasStatusCard" style="max-width:220px;margin-bottom:20px;"></div>
+
+      <div id="listaLideresFerias" style="max-width:520px;margin-bottom:24px;"></div>
+
+      <div id="liderFeriasLimitMsg" class="hidden" style="max-width:520px;" role="alert" aria-live="assertive"></div>
+      <div id="msgCadastroLiderFerias" role="alert" aria-live="assertive"></div>
+      <div id="camposCadastroLiderFerias" style="max-width:520px;"></div>
+      <button class="btn" id="btnCadastrarLiderFerias" style="margin-top:6px;max-width:320px;">Cadastrar líder</button>
     </div>
 
     <!-- ABA: FÉRIAS UNIVERSITÁRIA (inscritos que escolheram esse projeto no formulário) -->
@@ -2583,6 +2599,7 @@ const ESTUDANTES_COLLECTION = "estudantes_sonhandoalto";
 const FORMADOS_COLLECTION = "formados_sonhandoalto";
 const CONFIG_COLLECTION = "configuracoes_sonhandoalto";
 const FERIAS_COLLECTION = "inscricoes_feriasuniversitaria";
+const LIDERES_FERIAS_COLLECTION = "lideres_feriasuniversitaria";
 
 /* =========================================================
    E-MAILS AUTORIZADOS A ACESSAR O PAINEL ADMIN
@@ -3219,14 +3236,18 @@ let allLideres = [];
 let unsubscribeLideres = null;
 let allFerias = [];
 let unsubscribeFerias = null;
+let allLideresFerias = [];
+let unsubscribeLideresFerias = null;
 let camposCadastroInicializados = false;
 
 function inicializarAbasCadastro(){
   if(camposCadastroInicializados) return;
   document.getElementById('camposCadastroParticipante').innerHTML = buildCamposHTML('ap');
   document.getElementById('camposCadastroLider').innerHTML = buildCamposHTML('al');
+  document.getElementById('camposCadastroLiderFerias').innerHTML = buildCamposHTML('alf');
   attachMasks('ap');
   attachMasks('al');
+  attachMasks('alf');
   camposCadastroInicializados = true;
 }
 
@@ -3274,6 +3295,16 @@ function showAdminPanel(){
       renderFeriasView();
     }, err => {
       document.getElementById('feriasTableBody').innerHTML = `<tr><td colspan="7">Erro ao carregar: ${err.message}</td></tr>`;
+    });
+
+  if(unsubscribeLideresFerias) unsubscribeLideresFerias();
+  unsubscribeLideresFerias = db.collection(LIDERES_FERIAS_COLLECTION).orderBy('criadoEm','desc')
+    .onSnapshot(snap => {
+      allLideresFerias = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderLideresFeriasList();
+      renderFeriasView();
+    }, err => {
+      document.getElementById('listaLideresFerias').innerHTML = `<div class="msg-banner error">Erro ao carregar líderes: ${err.message}</div>`;
     });
 
   db.collection('stats').doc('visitas').onSnapshot(doc => {
@@ -4103,6 +4134,96 @@ document.getElementById('btnCadastrarLider')?.addEventListener('click', async ()
 });
 
 /* =========================================================
+   ABA: CADASTRAR LÍDER - FÉRIAS UNIVERSITÁRIA (máximo 2)
+   Mesma lógica da aba de líderes do Sonhando Alto, só que
+   numa coleção própria (lideres_feriasuniversitaria).
+========================================================= */
+function renderLideresFeriasList(){
+  const card = document.getElementById('liderFeriasStatusCard');
+  const wrap = document.getElementById('listaLideresFerias');
+  const limitMsg = document.getElementById('liderFeriasLimitMsg');
+  const campos = document.getElementById('camposCadastroLiderFerias');
+  const btn = document.getElementById('btnCadastrarLiderFerias');
+
+  card.innerHTML = `<div class="num">${allLideresFerias.length}/2</div><div class="lbl">Líderes cadastrados</div>`;
+
+  if(allLideresFerias.length === 0){
+    wrap.innerHTML = `<p style="color:var(--gray);font-size:13.5px;">Nenhum líder cadastrado ainda.</p>`;
+  } else {
+    wrap.innerHTML = allLideresFerias.map(l => `
+      <div class="stat-card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px;">
+        <div>
+          <div style="font-family:'Anton',sans-serif;font-size:15px;color:var(--white);">${l.nome || ''}</div>
+          <div style="color:var(--gray);font-size:12.5px;margin-top:2px;">${l.cidade || ''}${l.cidade && l.whatsapp ? ' · ' : ''}${l.whatsapp || ''}</div>
+        </div>
+        <button class="btn small danger js-remover-lider-ferias" data-id="${l.id}">Remover</button>
+      </div>
+    `).join('');
+  }
+
+  const limitReached = allLideresFerias.length >= 2;
+  limitMsg.classList.toggle('hidden', !limitReached);
+  if(limitReached){
+    limitMsg.innerHTML = `<div class="msg-banner error">Limite de 2 líderes atingido. Remova um líder acima para poder cadastrar outro.</div>`;
+  }
+  campos.style.display = limitReached ? 'none' : '';
+  btn.style.display = limitReached ? 'none' : '';
+}
+
+document.getElementById('listaLideresFerias')?.addEventListener('click', e => {
+  const btn = e.target.closest('.js-remover-lider-ferias');
+  if(btn) removerLiderFerias(btn.dataset.id);
+});
+
+window.removerLiderFerias = async function(id){
+  if(!confirm('Tem certeza que deseja remover este líder?')) return;
+  try {
+    await db.collection(LIDERES_FERIAS_COLLECTION).doc(id).delete();
+  } catch(err){
+    alert('Erro ao remover: ' + err.message);
+  }
+};
+
+document.getElementById('btnCadastrarLiderFerias')?.addEventListener('click', async () => {
+  if(allLideresFerias.length >= 2){
+    document.getElementById('msgCadastroLiderFerias').innerHTML = `<div class="msg-banner error">Limite de 2 líderes já atingido.</div>`;
+    return;
+  }
+
+  const vals = coletarDados('alf');
+  const checks = validarDados(vals);
+  let valid = true;
+  checks.forEach(([name, ok]) => { showFieldError('camposCadastroLiderFerias', name, !ok); if(!ok) valid = false; });
+
+  const msgArea = document.getElementById('msgCadastroLiderFerias');
+  msgArea.innerHTML = '';
+  if(!valid){
+    msgArea.innerHTML = `<div class="msg-banner error">Corrija os campos destacados antes de cadastrar.</div>`;
+    document.querySelector('#camposCadastroLiderFerias .field.error')?.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  const btn = document.getElementById('btnCadastrarLiderFerias');
+  btn.disabled = true;
+  btn.textContent = 'Cadastrando...';
+
+  try {
+    await db.collection(LIDERES_FERIAS_COLLECTION).add({
+      ...vals,
+      idade: calcIdade(vals.nascimento),
+      cadastradoPor: auth.currentUser?.email || null,
+      criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    msgArea.innerHTML = `<div class="msg-banner ok">Líder cadastrado com sucesso!</div>`;
+    limparCampos('alf');
+  } catch(err){
+    msgArea.innerHTML = `<div class="msg-banner error">Erro ao cadastrar: ${err.message}</div>`;
+  }
+  btn.disabled = false;
+  btn.textContent = 'Cadastrar líder';
+});
+
+/* =========================================================
    BOTÃO "PREENCHA OS DADOS ABAIXO PARA SE INSCREVER"
 ========================================================= */
 document.getElementById('btnScrollToForm')?.addEventListener('click', () => {
@@ -4159,6 +4280,7 @@ function renderFeriasStats(){
   allFerias.forEach(r => byStatus[r.status] = (byStatus[r.status]||0)+1);
   const statuses = ['Inscrito','Em análise','Aprovado','Reprovado','Confirmado'];
   let html = `<div class="stat-card"><div class="num">${total}</div><div class="lbl">Total de inscritos</div></div>`;
+  html += `<div class="stat-card"><div class="num">${allLideresFerias.length}</div><div class="lbl">Líderes</div></div>`;
   statuses.forEach(s => {
     html += `<div class="stat-card"><div class="num">${byStatus[s]||0}</div><div class="lbl">${s}</div></div>`;
   });
