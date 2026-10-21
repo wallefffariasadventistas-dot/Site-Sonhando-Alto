@@ -3727,13 +3727,22 @@ const MODAL_FIELDS = [
 let currentRegId = null;
 let currentTipo = null;
 
+/* 'lider' (Sonhando Alto) e 'lider-ferias' (Férias Universitária) usam o
+   mesmo modal de detalhes/edição dos inscritos, só sem status/observação. */
+function ehTipoLider(tipo){
+  return tipo === 'lider' || tipo === 'lider-ferias';
+}
+
 function getCurrentRecord(){
-  const arr = currentTipo === 'lider' ? allLideres : (currentTipo === 'ferias' ? allFerias : allRegs);
-  return arr.find(x => x.id === currentRegId);
+  if(currentTipo === 'lider') return allLideres.find(x => x.id === currentRegId);
+  if(currentTipo === 'lider-ferias') return allLideresFerias.find(x => x.id === currentRegId);
+  if(currentTipo === 'ferias') return allFerias.find(x => x.id === currentRegId);
+  return allRegs.find(x => x.id === currentRegId);
 }
 
 function getCurrentCollectionName(){
   if(currentTipo === 'lider') return LIDERES_COLLECTION;
+  if(currentTipo === 'lider-ferias') return LIDERES_FERIAS_COLLECTION;
   if(currentTipo === 'ferias') return FERIAS_COLLECTION;
   return COLLECTION;
 }
@@ -3798,7 +3807,7 @@ window.openModal = function(id, tipo){
   const r = getCurrentRecord();
   if(!r) return;
 
-  document.getElementById('modalTitle').textContent = currentTipo === 'lider' ? 'Detalhes do líder'
+  document.getElementById('modalTitle').textContent = ehTipoLider(currentTipo) ? 'Detalhes do líder'
     : (currentTipo === 'ferias' ? 'Detalhes da inscrição (Férias Universitária)' : 'Detalhes da inscrição');
   renderModalView(r);
 
@@ -3809,7 +3818,7 @@ window.openModal = function(id, tipo){
   const btnSaveStatus = document.getElementById('btnSaveStatus');
   const btnEnviarConfirmacao = document.getElementById('btnEnviarConfirmacao');
   const btnObservacao = document.getElementById('btnObservacao');
-  if(currentTipo === 'lider'){
+  if(ehTipoLider(currentTipo)){
     statusWrap.style.display = 'none';
     btnSaveStatus.style.display = 'none';
     btnEnviarConfirmacao.style.display = 'none';
@@ -3831,7 +3840,7 @@ document.getElementById('modalClose').addEventListener('click', () => document.g
 document.getElementById('modalBg').addEventListener('click', e => { if(e.target.id === 'modalBg') e.currentTarget.classList.remove('open'); });
 
 document.getElementById('btnSaveStatus').addEventListener('click', async () => {
-  if(!currentRegId || currentTipo === 'lider') return;
+  if(!currentRegId || ehTipoLider(currentTipo)) return;
   const novoStatus = document.getElementById('modalStatusSelect').value;
   await db.collection(getCurrentCollectionName()).doc(currentRegId).update({ status: novoStatus });
   const r = getCurrentRecord();
@@ -3848,7 +3857,7 @@ function montarLinkWhatsApp(whatsapp, mensagem){
 }
 
 document.getElementById('btnEnviarConfirmacao').addEventListener('click', () => {
-  if(!currentRegId || currentTipo === 'lider') return;
+  if(!currentRegId || ehTipoLider(currentTipo)) return;
   const r = getCurrentRecord();
   if(!r || !r.whatsapp){
     alert('Este inscrito não possui um número de WhatsApp cadastrado.');
@@ -3860,7 +3869,7 @@ document.getElementById('btnEnviarConfirmacao').addEventListener('click', () => 
 });
 
 document.getElementById('btnObservacao').addEventListener('click', () => {
-  if(!currentRegId || currentTipo === 'lider') return;
+  if(!currentRegId || ehTipoLider(currentTipo)) return;
   window.abrirNota(currentRegId, currentTipo === 'ferias' ? 'ferias' : 'inscrito');
 });
 
@@ -3924,7 +3933,7 @@ document.getElementById('btnSalvarNota').addEventListener('click', async () => {
 
 document.getElementById('btnDeleteReg').addEventListener('click', async () => {
   if(!currentRegId) return;
-  const msg = currentTipo === 'lider'
+  const msg = ehTipoLider(currentTipo)
     ? 'Tem certeza que deseja remover este líder? Esta ação não pode ser desfeita.'
     : 'Tem certeza que deseja excluir esta inscrição? Esta ação não pode ser desfeita.';
   if(!confirm(msg)) return;
@@ -3996,9 +4005,12 @@ document.getElementById('btnExportExcel')?.addEventListener('click', () => {
 
 /* ---------- EXPORTAÇÃO EXCEL (Férias Universitária) ---------- */
 document.getElementById('btnExportExcelFerias')?.addEventListener('click', () => {
-  // Exporta todos os inscritos da Férias Universitária, com todos os status
+  // Exporta líderes + inscritos da Férias Universitária, com todos os status
   // (diferente do Excel do Sonhando Alto, que só traz os confirmados).
-  const data = allFerias.map(r => ({
+  // Líderes entram com os mesmos dados completos, só o "Status" vira "Líder".
+  const lideresTagged = allLideresFerias.map(l => ({ ...l, status: 'Líder' }));
+  const unified = [...lideresTagged, ...allFerias];
+  const data = unified.map(r => ({
     Nome: r.nome, 'Data de nascimento': r.nascimento, Idade: r.idade, CPF: r.cpf, RG: r.rg,
     'Estado civil': r.estadoCivil, Escolaridade: r.escolaridade, Email: r.email,
     WhatsApp: r.whatsapp, CEP: r.cep, Cidade: r.cidade, Endereço: r.endereco, Bairro: r.bairro,
@@ -4024,14 +4036,19 @@ async function gerarPdfFerias(){
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
+    // Líderes entram junto, com o mesmo nome abreviado dos demais — só o
+    // "Status" muda para "Líder" em vez do status de inscrição.
+    const lideresTagged = allLideresFerias.map(l => ({ ...l, status: 'Líder' }));
+    const unified = [...lideresTagged, ...allFerias];
+
     doc.setFontSize(16);
     doc.text('Sonhando Alto — Férias Universitária', 14, 18);
     doc.setFontSize(10);
     doc.setTextColor(120);
-    doc.text(`Gerado em ${new Date().toLocaleDateString('pt-BR')} · ${allFerias.length} inscrito(s)`, 14, 24);
+    doc.text(`Gerado em ${new Date().toLocaleDateString('pt-BR')} · ${allLideresFerias.length} líder(es) + ${allFerias.length} inscrito(s)`, 14, 24);
     doc.setTextColor(0);
 
-    const linhas = allFerias.map(r => [
+    const linhas = unified.map(r => [
       abreviarNome(r.nome), r.whatsapp || '—', r.cidade || '—', r.escolaridade || '—', r.status || 'Inscrito'
     ]);
 
@@ -4112,7 +4129,10 @@ function renderLideresList(){
           <div style="font-family:'Anton',sans-serif;font-size:15px;color:var(--white);">${l.nome || ''}</div>
           <div style="color:var(--gray);font-size:12.5px;margin-top:2px;">${l.cidade || ''}${l.cidade && l.whatsapp ? ' · ' : ''}${l.whatsapp || ''}</div>
         </div>
-        <button class="btn small danger js-remover-lider" data-id="${l.id}">Remover</button>
+        <div style="display:flex;gap:8px;flex-shrink:0;">
+          <button class="btn small secondary js-ver-lider" data-id="${l.id}">Ver / Editar</button>
+          <button class="btn small danger js-remover-lider" data-id="${l.id}">Remover</button>
+        </div>
       </div>
     `).join('');
   }
@@ -4127,6 +4147,8 @@ function renderLideresList(){
 }
 
 document.getElementById('listaLideres')?.addEventListener('click', e => {
+  const verBtn = e.target.closest('.js-ver-lider');
+  if(verBtn){ openModal(verBtn.dataset.id, 'lider'); return; }
   const btn = e.target.closest('.js-remover-lider');
   if(btn) removerLider(btn.dataset.id);
 });
@@ -4202,7 +4224,10 @@ function renderLideresFeriasList(){
           <div style="font-family:'Anton',sans-serif;font-size:15px;color:var(--white);">${l.nome || ''}</div>
           <div style="color:var(--gray);font-size:12.5px;margin-top:2px;">${l.cidade || ''}${l.cidade && l.whatsapp ? ' · ' : ''}${l.whatsapp || ''}</div>
         </div>
-        <button class="btn small danger js-remover-lider-ferias" data-id="${l.id}">Remover</button>
+        <div style="display:flex;gap:8px;flex-shrink:0;">
+          <button class="btn small secondary js-ver-lider-ferias" data-id="${l.id}">Ver / Editar</button>
+          <button class="btn small danger js-remover-lider-ferias" data-id="${l.id}">Remover</button>
+        </div>
       </div>
     `).join('');
   }
@@ -4217,6 +4242,8 @@ function renderLideresFeriasList(){
 }
 
 document.getElementById('listaLideresFerias')?.addEventListener('click', e => {
+  const verBtn = e.target.closest('.js-ver-lider-ferias');
+  if(verBtn){ openModal(verBtn.dataset.id, 'lider-ferias'); return; }
   const btn = e.target.closest('.js-remover-lider-ferias');
   if(btn) removerLiderFerias(btn.dataset.id);
 });
